@@ -1,6 +1,19 @@
 /**
  * Janela de busca em St. É a view do `SpotlightPresenter`: desenha o que ele manda e
- * repassa teclado e clique. Fica centralizada no monitor em foco, a 20% do topo.
+ * repassa teclado e clique.
+ *
+ * Posição: centro horizontal do monitor em foco, topo a 25% da altura. A posição é
+ * EXPLÍCITA (AlignConstraint + y): com `BinLayout` + `y_align: START` o Shell 50 ignorava o
+ * alinhamento e centralizava o painel, empurrando-o para baixo do meio da tela.
+ *
+ * Blur: quem desfoca é o Blur my Shell, que já trata os cantos arredondados. O painel leva
+ * a classe `clipboard-dialog` (uma das que ele reconhece em diálogos e que o tema do GNOME
+ * não estiliza) e fica translúcido só quando o Blur my Shell está ativo. O
+ * `Shell.BlurEffect` próprio foi descartado: sem raio de canto, ele deixava quinas
+ * quadradas, e desfocar a tela inteira não é o efeito desejado.
+ *
+ * A caixa de busca usa estilo INLINE: o tema pinta `StEntry:focus` com fundo e anel
+ * (`box-shadow ... !important`), e nenhuma regra da folha da extensão ganhou dele.
  */
 import Clutter from "gi://Clutter";
 import Shell from "gi://Shell";
@@ -8,9 +21,11 @@ import St from "gi://St";
 import { ensureActorVisibleInScrollView } from "resource:///org/gnome/shell/misc/animationUtils.js";
 import * as Main from "resource:///org/gnome/shell/ui/main.js";
 
+import { PanelSurface, resolvePanelSurface } from "@domain/appearance/panelSurface";
 import { getResultKindLabel } from "@domain/search/resultKindLabel";
 import type { SearchResult } from "@domain/search/searchResult";
 import type { Translate } from "@i18n/translate";
+import { hasBlurMyShell } from "@infra/gnome/blurProvider";
 import { ResultRow } from "@ui/resultRow";
 import type { SpotlightPresenter, SpotlightView } from "@ui/spotlightPresenter";
 
@@ -25,8 +40,16 @@ export type SpotlightListener = Pick<
   | "reset"
 >;
 
-const TOP_OFFSET_RATIO = 0.2;
+const TOP_OFFSET_RATIO = 0.25;
 const OPEN_ANIMATION_MS = 140;
+/** Classe que o Blur my Shell reconhece como diálogo a desfocar. */
+const BLUR_TARGET_CLASS = "clipboard-dialog";
+const ENTRY_INLINE_STYLE = "background-color: transparent; box-shadow: none; border: none;";
+
+const PANEL_SURFACE_CLASSES: Record<PanelSurface, string> = {
+  [PanelSurface.GLASS]: "spotlight-panel-glass",
+  [PanelSurface.SOLID]: "spotlight-panel-solid",
+};
 
 type KeyAction = (listener: SpotlightListener, text: string) => void;
 
@@ -64,6 +87,7 @@ export class SpotlightOverlay implements SpotlightView {
         style_class: "spotlight-entry-icon",
         icon_name: "edit-find-symbolic",
       }),
+      style: ENTRY_INLINE_STYLE,
     });
 
     this.separator = new St.Widget({ style_class: "spotlight-separator", visible: false });
@@ -83,18 +107,23 @@ export class SpotlightOverlay implements SpotlightView {
     });
 
     this.panel = new St.BoxLayout({
-      style_class: "spotlight-panel",
+      style_class: `spotlight-panel ${BLUR_TARGET_CLASS}`,
       orientation: Clutter.Orientation.VERTICAL,
-      x_align: Clutter.ActorAlign.CENTER,
-      y_align: Clutter.ActorAlign.START,
       reactive: true,
     });
     this.panel.add_child(this.entry);
     this.panel.add_child(this.separator);
     this.panel.add_child(this.scrollView);
 
-    this.backdrop = new St.Widget({ layout_manager: new Clutter.BinLayout(), reactive: true });
+    this.backdrop = new St.Widget({ reactive: true });
     this.backdrop.add_child(this.panel);
+    this.panel.add_constraint(
+      new Clutter.AlignConstraint({
+        source: this.backdrop,
+        align_axis: Clutter.AlignAxis.X_AXIS,
+        factor: 0.5,
+      }),
+    );
 
     this.connectSignals();
   }
@@ -121,6 +150,7 @@ export class SpotlightOverlay implements SpotlightView {
     if (Main.overview.visible) Main.overview.hide();
 
     this.placeOnCurrentMonitor();
+    this.applyPanelSurface();
     Main.layoutManager.modalDialogGroup.add_child(this.backdrop);
 
     this.grab = Main.pushModal(this.backdrop, { actionMode: Shell.ActionMode.SYSTEM_MODAL });
@@ -203,13 +233,22 @@ export class SpotlightOverlay implements SpotlightView {
     return Clutter.EVENT_STOP;
   }
 
+  private applyPanelSurface(): void {
+    Object.values(PANEL_SURFACE_CLASSES).forEach((name) =>
+      this.panel.remove_style_class_name(name),
+    );
+    this.panel.add_style_class_name(
+      PANEL_SURFACE_CLASSES[resolvePanelSurface({ hasBlurProvider: hasBlurMyShell() })],
+    );
+  }
+
   private placeOnCurrentMonitor(): void {
     const monitor = Main.layoutManager.currentMonitor;
     if (!monitor) return;
 
     this.backdrop.set_position(monitor.x, monitor.y);
     this.backdrop.set_size(monitor.width, monitor.height);
-    this.panel.set_style(`margin-top: ${Math.round(monitor.height * TOP_OFFSET_RATIO)}px;`);
+    this.panel.y = Math.round(monitor.height * TOP_OFFSET_RATIO);
   }
 
   private animateIn(): void {

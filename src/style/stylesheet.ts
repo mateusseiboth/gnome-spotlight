@@ -3,6 +3,11 @@
  * claro e o escuro nunca divergem em layout. O build grava `stylesheet-dark.css`,
  * `stylesheet-light.css` e `stylesheet.css` (fallback = escuro), que o Shell escolhe
  * conforme `Main.getStyleVariant()`.
+ *
+ * O fundo do painel vem de duas classes: `spotlight-panel-glass` (translúcido, com o Blur
+ * my Shell desfocando atrás) e `spotlight-panel-solid` (sem blur disponível). O raio de
+ * 18px é o `dialog-corner-radius` padrão do Blur my Shell: raios diferentes deixam o blur
+ * sobrando nos cantos.
  */
 
 export const ThemeVariant = {
@@ -12,35 +17,35 @@ export const ThemeVariant = {
 export type ThemeVariant = (typeof ThemeVariant)[keyof typeof ThemeVariant];
 
 interface ThemeTokens {
-  readonly panelBackground: string;
+  readonly panelGlass: string;
+  readonly panelSolid: string;
   readonly panelBorder: string;
   readonly text: string;
   readonly dimText: string;
   readonly hoverBackground: string;
   readonly separator: string;
-  readonly shadow: string;
   readonly iconTile: string;
 }
 
 const THEME_TOKENS: Record<ThemeVariant, ThemeTokens> = {
   [ThemeVariant.DARK]: {
-    panelBackground: "rgba(34, 34, 38, 0.94)",
+    panelGlass: "rgba(30, 30, 34, 0.55)",
+    panelSolid: "rgba(36, 36, 40, 0.97)",
     panelBorder: "rgba(255, 255, 255, 0.09)",
     text: "#ffffff",
     dimText: "rgba(255, 255, 255, 0.6)",
     hoverBackground: "rgba(255, 255, 255, 0.08)",
     separator: "rgba(255, 255, 255, 0.1)",
-    shadow: "rgba(0, 0, 0, 0.5)",
     iconTile: "rgba(255, 255, 255, 0.1)",
   },
   [ThemeVariant.LIGHT]: {
-    panelBackground: "rgba(250, 250, 252, 0.95)",
+    panelGlass: "rgba(250, 250, 252, 0.6)",
+    panelSolid: "rgba(250, 250, 252, 0.97)",
     panelBorder: "rgba(0, 0, 0, 0.08)",
     text: "#1f1f24",
     dimText: "rgba(0, 0, 0, 0.55)",
     hoverBackground: "rgba(0, 0, 0, 0.06)",
     separator: "rgba(0, 0, 0, 0.08)",
-    shadow: "rgba(0, 0, 0, 0.22)",
     iconTile: "rgba(0, 0, 0, 0.06)",
   },
 };
@@ -49,11 +54,17 @@ const TEMPLATE = `
 .spotlight-panel {
   width: 640px;
   padding: 8px;
-  border-radius: 20px;
+  border-radius: 18px;
   color: {{text}};
-  background-color: {{panelBackground}};
   border: 1px solid {{panelBorder}};
-  box-shadow: 0 12px 40px 4px {{shadow}};
+}
+
+.spotlight-panel-glass {
+  background-color: {{panelGlass}};
+}
+
+.spotlight-panel-solid {
+  background-color: {{panelSolid}};
 }
 
 .spotlight-entry {

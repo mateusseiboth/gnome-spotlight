@@ -22,6 +22,10 @@ Feita para o GNOME Shell 50.
 Teclas: setas navegam, Enter abre, Tab completa caminho, Esc limpa o texto e o segundo Esc fecha.
 Clicar fora da janela também fecha.
 
+A janela abre centralizada no monitor em foco, com o topo a 25% da altura. Com o Blur my
+Shell ativo (componente de popups), o painel fica translúcido e desfocado como os outros
+popups do GNOME; sem ele, o painel é sólido.
+
 A calculadora aceita `+ - * / ^`, `×` e `÷`, parênteses, `%` (divide por 100), `!`
 (fatorial), multiplicação implícita (`2pi`, `2(3+1)`), vírgula ou ponto como decimal, as
 constantes `pi`, `tau` e `e`, e as funções `sqrt cbrt abs ln log log2 exp sin cos tan asin

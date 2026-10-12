@@ -32,3 +32,16 @@ de mexer: lá estão a arquitetura, as regras de busca e as armadilhas do Shell.
 - `Gio.DesktopAppInfo` agora é `GioUnix.DesktopAppInfo`.
 - No Shell 50 o `Main.pushModal` não devolve mais estado de grab (`Clutter.GrabState` sumiu).
 - Mudança só aparece no Shell real depois de logout/login (Wayland).
+- Posição do painel é explícita (`AlignConstraint` no X, `y` calculado). Com `BinLayout` +
+  `y_align: START` o Shell 50 centralizou o painel e o jogou para baixo do meio da tela.
+- Blur é do Blur my Shell, não nosso. O componente de popups dele vigia o
+  `modalDialogGroup` e desfoca, com cantos arredondados, atores com classe de diálogo; o
+  painel leva `clipboard-dialog` (o tema do GNOME não estiliza essa classe). Sem o Blur my
+  Shell o painel fica sólido (`resolvePanelSurface`). O raio do painel (18px) precisa bater
+  com o `dialog-corner-radius` dele. Já tentado e descartado: `Shell.BlurEffect` próprio
+  (sem raio de canto, sobra quina quadrada; e desfocar a tela inteira não é o efeito
+  desejado).
+- Regra do tema GANHA da folha da extensão quando as duas estilizam a mesma propriedade
+  (o anel de `StEntry:focus` continuou mesmo com `!important` na nossa). Para mudar
+  propriedade que o tema já define num ator nativo, use estilo inline (`style:` /
+  `set_style`), que o St aplica por último.
