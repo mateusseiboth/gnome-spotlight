@@ -1,0 +1,16 @@
+# Os aliases espelham o `paths` do tsconfig.json (mesmos nomes, mesmos destinos).
+[alias]
+"@domain/*" = "./src/domain/*"
+"@service/*" = "./src/service/*"
+"@provider/*" = "./src/provider/*"
+"@infra/*" = "./src/infra/*"
+"@ui/*" = "./src/ui/*"
+"@i18n/*" = "./src/i18n/*"
+"@style/*" = "./src/style/*"
+"@app/*" = "./src/app/*"
+"@prefs/*" = "./src/prefs/*"
+"@test/*" = "./test/*"
+"@scripts/*" = "./scripts/*"
+
+[test]
+root = "./test"

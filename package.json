@@ -1,0 +1,24 @@
+{
+  "name": "gnome-spotlight",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun scripts/build.ts",
+    "install:local": "bun scripts/build.ts && bun scripts/install.ts",
+    "format": "oxfmt src scripts test package.json",
+    "format:check": "oxfmt --check src scripts test package.json",
+    "lint": "oxlint --type-aware",
+    "lint:fix": "oxlint --type-aware --fix",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p test/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@girs/gnome-shell": "^50.0.4",
+    "@types/bun": "^1.4.3",
+    "oxfmt": "^0.72.0",
+    "oxlint": "^1.87.0",
+    "oxlint-tsgolint": "^7.0.2004",
+    "typescript": "^7.0.2"
+  }
+}

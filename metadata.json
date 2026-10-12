@@ -1,0 +1,10 @@
+{
+  "uuid": "gnome-spotlight@mateusseiboth.github.io",
+  "name": "Spotlight",
+  "description": "Search bar on Super+Space, inspired by macOS Spotlight and the COSMIC launcher: apps, open windows, calculations, commands, files, system actions and web search.",
+  "shell-version": ["50"],
+  "url": "https://github.com/mateusseiboth/gnome-spotlight",
+  "settings-schema": "org.gnome.shell.extensions.gnome-spotlight",
+  "gettext-domain": "gnome-spotlight",
+  "version-name": "1.0.0"
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": false,
+  "quoteProps": "as-needed",
+  "jsxSingleQuote": false,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "singleAttributePerLine": false,
+  "objectWrap": "preserve",
+  "sortPackageJson": true,
+  "sortImports": {
+    "internalPattern": ["@domain/", "@service/", "@provider/", "@infra/", "@ui/", "@i18n/", "@style/", "@app/", "@prefs/", "@test/", "@scripts/"],
+    "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"]],
+    "newlinesBetween": true
+  }
+}

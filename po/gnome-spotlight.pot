@@ -1,0 +1,91 @@
+# Mensagens traduzíveis de gnome-spotlight.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "App"
+msgstr ""
+
+msgid "Browse files and folders"
+msgstr ""
+
+msgid "Calculate"
+msgstr ""
+
+msgid "Calculator"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Change"
+msgstr ""
+
+msgid "Command"
+msgstr ""
+
+msgid "Could not open the result"
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+msgid "Esc cancels. Backspace disables the shortcut."
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Folder"
+msgstr ""
+
+msgid "Maximum results"
+msgstr ""
+
+msgid "Prefixes"
+msgstr ""
+
+msgid "Press Enter to copy the result"
+msgstr ""
+
+msgid "Press the new shortcut"
+msgstr ""
+
+msgid "Run in background"
+msgstr ""
+
+msgid "Run in terminal"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Search apps, windows, files or type a calculation"
+msgstr ""
+
+msgid "Search the web"
+msgstr ""
+
+msgid "Search the web for “%s”"
+msgstr ""
+
+msgid "Shortcut"
+msgstr ""
+
+msgid "Switch to %s"
+msgstr ""
+
+msgid "System"
+msgstr ""
+
+msgid "Use Super, Ctrl or Alt together with another key."
+msgstr ""
+
+msgid "Web"
+msgstr ""
+
+msgid "Web search address (%s is the searched text)"
+msgstr ""
+
+msgid "Window"
+msgstr ""

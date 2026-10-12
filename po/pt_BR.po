@@ -1,0 +1,99 @@
+# Tradução pt-BR da extensão gnome-spotlight.
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-spotlight\n"
+"PO-Revision-Date: 2026-10-12 00:00-0400\n"
+"Last-Translator: Mateus Seiboth\n"
+"Language-Team: Portuguese (Brazil)\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "App"
+msgstr "App"
+
+msgid "Browse files and folders"
+msgstr "Navegar por arquivos e pastas"
+
+msgid "Calculate"
+msgstr "Calcular"
+
+msgid "Calculator"
+msgstr "Calculadora"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Change"
+msgstr "Alterar"
+
+msgid "Command"
+msgstr "Comando"
+
+msgid "Could not open the result"
+msgstr "Não foi possível abrir o resultado"
+
+msgid "Disabled"
+msgstr "Desativado"
+
+msgid "Esc cancels. Backspace disables the shortcut."
+msgstr "Esc cancela. Backspace desativa o atalho."
+
+msgid "File"
+msgstr "Arquivo"
+
+msgid "Folder"
+msgstr "Pasta"
+
+msgid "Maximum results"
+msgstr "Máximo de resultados"
+
+msgid "Prefixes"
+msgstr "Prefixos"
+
+msgid "Press Enter to copy the result"
+msgstr "Enter copia o resultado"
+
+msgid "Press the new shortcut"
+msgstr "Pressione o novo atalho"
+
+msgid "Run in background"
+msgstr "Executar em segundo plano"
+
+msgid "Run in terminal"
+msgstr "Executar no terminal"
+
+msgid "Search"
+msgstr "Busca"
+
+msgid "Search apps, windows, files or type a calculation"
+msgstr "Busque apps, janelas, arquivos ou digite uma conta"
+
+msgid "Search the web"
+msgstr "Pesquisar na web"
+
+msgid "Search the web for “%s”"
+msgstr "Pesquisar “%s” na web"
+
+msgid "Shortcut"
+msgstr "Atalho"
+
+msgid "Switch to %s"
+msgstr "Ir para %s"
+
+msgid "System"
+msgstr "Sistema"
+
+msgid "Use Super, Ctrl or Alt together with another key."
+msgstr "Use Super, Ctrl ou Alt junto com outra tecla."
+
+msgid "Web"
+msgstr "Web"
+
+msgid "Web search address (%s is the searched text)"
+msgstr "Endereço da busca na web (%s é o texto buscado)"
+
+msgid "Window"
+msgstr "Janela"

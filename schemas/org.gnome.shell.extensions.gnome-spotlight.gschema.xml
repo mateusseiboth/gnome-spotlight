@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Os nomes das chaves espelham src/infra/gnome/settingsKeys.ts. -->
+<schemalist gettext-domain="gnome-spotlight">
+  <schema id="org.gnome.shell.extensions.gnome-spotlight" path="/org/gnome/shell/extensions/gnome-spotlight/">
+    <key name="toggle-spotlight" type="as">
+      <default><![CDATA[['<Super>space']]]></default>
+      <summary>Shortcut that opens the search</summary>
+    </key>
+    <key name="web-search-url" type="s">
+      <default>'https://www.google.com/search?q=%s'</default>
+      <summary>Web search address, %s is replaced by the searched text</summary>
+    </key>
+    <key name="max-results" type="i">
+      <range min="3" max="20"/>
+      <default>8</default>
+      <summary>Maximum number of results shown</summary>
+    </key>
+    <key name="released-keybindings" type="s">
+      <default>'[]'</default>
+      <summary>GNOME shortcuts released by the extension, restored on disable (JSON)</summary>
+    </key>
+  </schema>
+</schemalist>
