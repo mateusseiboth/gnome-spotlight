@@ -22,7 +22,7 @@ Feita para o GNOME Shell 50.
 Teclas: setas navegam, Enter abre, Tab completa caminho, Esc limpa o texto e o segundo Esc fecha.
 Clicar fora da janela também fecha.
 
-A janela abre centralizada no monitor em foco, com o topo a 25% da altura. Com o Blur my
+A janela abre centralizada no monitor onde está o ponteiro, com o topo a 25% da altura. Com o Blur my
 Shell ativo (componente de popups), o painel fica translúcido e desfocado como os outros
 popups do GNOME; sem ele, o painel é sólido.
 

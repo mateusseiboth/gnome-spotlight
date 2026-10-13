@@ -24,8 +24,9 @@ Conferido contra o código do gnome-shell 50.5 instalado (extraído de
 
 - O `gettext` exportado por `extension.js` descobre a extensão pela pilha de chamadas. Com o
   bundle funciona, mas a extensão passa `this.gettext` da instância, que não depende disso.
-- A janela abre no monitor em foco (`Main.layoutManager.currentMonitor`), com o topo a 25%
-  da altura.
+- A janela abre no monitor onde está o ponteiro (`Main.layoutManager.currentMonitor`), com
+  o topo a 25% da altura. O fundo é preso a esse monitor por `Layout.MonitorConstraint`: o
+  `modalDialogGroup` usa `BinLayout` e ignora posição e tamanho fixos do filho.
   Com a Visão geral aberta, ela fecha a Visão geral antes.
 - Shell 50 já tem toggle de "Não perturbe"; não tem relação com esta extensão, mas aparece
   nas mesmas fontes consultadas.

@@ -34,6 +34,9 @@ de mexer: lá estão a arquitetura, as regras de busca e as armadilhas do Shell.
 - Mudança só aparece no Shell real depois de logout/login (Wayland).
 - Posição do painel é explícita (`AlignConstraint` no X, `y` calculado). Com `BinLayout` +
   `y_align: START` o Shell 50 centralizou o painel e o jogou para baixo do meio da tela.
+- O `modalDialogGroup` usa `BinLayout`: `set_position`/`set_size` no fundo da busca não
+  valem nada e ele cobre todos os monitores (o painel caía na emenda entre dois). Quem
+  prende o fundo ao monitor do ponteiro é o `Layout.MonitorConstraint`, como no `ModalDialog`.
 - Blur é do Blur my Shell, não nosso. O componente de popups dele vigia o
   `modalDialogGroup` e desfoca, com cantos arredondados, atores com classe de diálogo; o
   painel leva `clipboard-dialog` (o tema do GNOME não estiliza essa classe). Sem o Blur my

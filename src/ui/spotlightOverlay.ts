@@ -6,6 +6,11 @@
  * EXPLÍCITA (AlignConstraint + y): com `BinLayout` + `y_align: START` o Shell 50 ignorava o
  * alinhamento e centralizava o painel, empurrando-o para baixo do meio da tela.
  *
+ * Quem prende o fundo ao monitor é o `Layout.MonitorConstraint`, como no `ModalDialog` do
+ * Shell. O `modalDialogGroup` usa `BinLayout`, que ignora `set_position`/`set_size` do
+ * filho e o estica pela área de TODOS os monitores: com dois monitores o painel caía na
+ * emenda entre eles.
+ *
  * Blur: quem desfoca é o Blur my Shell, que já trata os cantos arredondados. O painel leva
  * a classe `clipboard-dialog` (uma das que ele reconhece em diálogos e que o tema do GNOME
  * não estiliza) e fica translúcido só quando o Blur my Shell está ativo. O
@@ -19,6 +24,7 @@ import Clutter from "gi://Clutter";
 import Shell from "gi://Shell";
 import St from "gi://St";
 import { ensureActorVisibleInScrollView } from "resource:///org/gnome/shell/misc/animationUtils.js";
+import { MonitorConstraint } from "resource:///org/gnome/shell/ui/layout.js";
 import * as Main from "resource:///org/gnome/shell/ui/main.js";
 
 import { PanelSurface, resolvePanelSurface } from "@domain/appearance/panelSurface";
@@ -68,6 +74,7 @@ const KEY_ACTIONS = new Map<number, KeyAction>([
 
 export class SpotlightOverlay implements SpotlightView {
   private readonly backdrop: St.Widget;
+  private readonly monitorConstraint: MonitorConstraint;
   private readonly panel: St.BoxLayout;
   private readonly entry: St.Entry;
   private readonly separator: St.Widget;
@@ -116,6 +123,8 @@ export class SpotlightOverlay implements SpotlightView {
     this.panel.add_child(this.scrollView);
 
     this.backdrop = new St.Widget({ reactive: true });
+    this.monitorConstraint = new MonitorConstraint({});
+    this.backdrop.add_constraint(this.monitorConstraint);
     this.backdrop.add_child(this.panel);
     this.panel.add_constraint(
       new Clutter.AlignConstraint({
@@ -246,8 +255,7 @@ export class SpotlightOverlay implements SpotlightView {
     const monitor = Main.layoutManager.currentMonitor;
     if (!monitor) return;
 
-    this.backdrop.set_position(monitor.x, monitor.y);
-    this.backdrop.set_size(monitor.width, monitor.height);
+    this.monitorConstraint.index = monitor.index;
     this.panel.y = Math.round(monitor.height * TOP_OFFSET_RATIO);
   }
 
