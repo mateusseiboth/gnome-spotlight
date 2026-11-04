@@ -4,7 +4,7 @@ Barra de busca no Super+Espaço, no estilo do Spotlight do macOS e do launcher d
 Digite e ela acha apps, janelas abertas, faz contas, roda comandos, navega por pastas,
 dispara ações do sistema e pesquisa na web.
 
-Feita para o GNOME Shell 50.
+Feita para o GNOME Shell 50 e 51.
 
 ## O que dá para digitar
 
