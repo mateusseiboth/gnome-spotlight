@@ -1,6 +1,3 @@
-/**
- * Comandos: `>` abre no terminal (para ver a saída), `$` roda em segundo plano.
- */
 import type { CommandRunner } from "@domain/launcher/launcherPorts";
 import { QueryMode, type ParsedQuery } from "@domain/query/queryParser";
 import { ResultKind, type SearchResult } from "@domain/search/searchResult";

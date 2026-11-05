@@ -1,13 +1,7 @@
-/**
- * Ações do sistema do próprio Shell (`misc/systemActions.js`): ele sabe o que está
- * disponível agora (ex.: sem "bloquear" na tela de bloqueio) e casa as palavras-chave
- * já traduzidas para o idioma da sessão.
- */
 import * as SystemActions from "resource:///org/gnome/shell/misc/systemActions.js";
 
 import type { SystemActionCatalog, SystemActionEntry } from "@domain/system/systemActionPorts";
 
-/** API pública do `SystemActions` que o `@girs/gnome-shell` 50.0.4 ainda não declara. */
 interface ShellSystemActions {
   getMatchingActions(terms: string[]): string[];
   getName(id: string): string;

@@ -1,6 +1,3 @@
-/**
- * Área de transferência do Shell (Ctrl+V).
- */
 import St from "gi://St";
 
 import type { Clipboard } from "@domain/launcher/launcherPorts";

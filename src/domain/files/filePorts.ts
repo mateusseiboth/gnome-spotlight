@@ -1,6 +1,3 @@
-/**
- * Porta de leitura de pastas para a busca de arquivos.
- */
 import type { SearchIcon } from "@domain/search/searchResult";
 
 export interface FileEntry {

@@ -61,14 +61,6 @@ Developer Edition".
 - Lê no máximo 500 itens da pasta, de forma assíncrona.
 - Tab completa com o caminho (pasta ganha a barra final), Enter abre no app padrão.
 
-## Atalho em conflito
-
-- Candidatos a conflito: `org.gnome.desktop.wm.keybindings switch-input-source`.
-- Ao liberar, grava `{schema, key, accelerator, index}` em `released-keybindings`.
-- Ao restaurar, devolve na posição original e não duplica se o usuário já tiver devolvido.
-- Registro corrompido vale como vazio.
-- Trocar o atalho nas preferências devolve o liberado antes e libera o novo.
-
 ## Captura do atalho nas preferências
 
 Esc cancela, Backspace deixa sem atalho, tecla modificadora sozinha espera a próxima tecla.

@@ -1,12 +1,3 @@
-/**
- * Escolhe o emulador de terminal do prefixo `>`.
- *
- * Primeiro o configurado no GNOME (`org.gnome.desktop.default-applications.terminal`).
- * Ele pode apontar para um binário que não existe: no Fedora 44 o padrão é
- * `xdg-terminal-exec`, que não vem instalado. Nesse caso cai na lista de conhecidos,
- * cada um com o argumento que separa as opções dele do comando a executar.
- */
-
 export interface ConfiguredTerminal {
   readonly exec: string;
   readonly execArg: string;
@@ -19,7 +10,6 @@ export interface Terminal {
 
 export type BinaryAvailability = (binary: string) => boolean;
 
-/** Ordem = preferência. Argumentos conferidos no `--help` de cada emulador. */
 const KNOWN_TERMINALS: readonly Terminal[] = [
   { executable: "xdg-terminal-exec", args: [] },
   { executable: "ptyxis", args: ["--"] },
@@ -46,7 +36,6 @@ export const resolveTerminal = (
   return KNOWN_TERMINALS.find((terminal) => isAvailable(terminal.executable)) ?? null;
 };
 
-/** O shell interativo no fim mantém a janela aberta para o usuário ler a saída. */
 export const buildTerminalArgv = (terminal: Terminal, command: string): string[] => [
   terminal.executable,
   ...terminal.args,

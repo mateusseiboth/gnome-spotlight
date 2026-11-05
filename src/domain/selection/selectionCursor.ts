@@ -1,6 +1,3 @@
-/**
- * Linha selecionada na lista de resultados. Dá a volta nas pontas.
- */
 export class SelectionCursor {
   private size = 0;
   private current = -1;

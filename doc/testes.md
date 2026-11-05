@@ -14,15 +14,14 @@ Dá para subir um gnome-shell isolado e ver se a extensão ativa sem erro:
 export XDG_DATA_HOME=$(mktemp -d) XDG_CONFIG_HOME=$(mktemp -d) XDG_CACHE_HOME=$(mktemp -d)
 export XDG_RUNTIME_DIR=/tmp/gsrt GSETTINGS_BACKEND=memory   # caminho curto, ver abaixo
 mkdir -p $XDG_RUNTIME_DIR $XDG_DATA_HOME/gnome-shell/extensions && chmod 700 $XDG_RUNTIME_DIR
-cp -r dist $XDG_DATA_HOME/gnome-shell/extensions/gnome-spotlight@mateusseiboth.github.io
+cp -r dist $XDG_DATA_HOME/gnome-shell/extensions/launchpad-search@mateusseiboth.github.io
 dbus-run-session -- sh -c 'gnome-shell --headless --wayland --no-x11 --virtual-monitor 1600x1000 & \
   gdbus wait --session --timeout 40 org.gnome.Shell; \
-  gnome-extensions enable gnome-spotlight@mateusseiboth.github.io; \
-  gnome-extensions info gnome-spotlight@mateusseiboth.github.io; wait'
+  gnome-extensions enable launchpad-search@mateusseiboth.github.io; \
+  gnome-extensions info launchpad-search@mateusseiboth.github.io; wait'
 ```
 
-- `GSETTINGS_BACKEND=memory` impede que o shell de teste grave no dconf da sessão real. Sem
-  isso, ativar a extensão ali tiraria o Super+Espaço da sua sessão de verdade.
+- `GSETTINGS_BACKEND=memory` impede que o shell de teste grave no dconf da sessão real.
 - O socket Wayland (`$XDG_RUNTIME_DIR/wayland-0`) tem limite de 108 bytes de caminho. Com
   `XDG_RUNTIME_DIR` comprido o mutter aborta com "Failed to create socket".
 - Para abrir as preferências dentro desse shell:

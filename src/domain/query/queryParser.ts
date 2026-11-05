@@ -1,10 +1,3 @@
-/**
- * Lê o texto digitado e decide o modo de busca pelo primeiro caractere (strategy map).
- *
- *   `=` calculadora   `>` comando no terminal   `$` comando em segundo plano
- *   `?` busca na web  `/` e `~` caminho de arquivo (o prefixo FAZ PARTE do caminho)
- */
-
 export const QueryMode = {
   DEFAULT: "default",
   CALCULATOR: "calculator",

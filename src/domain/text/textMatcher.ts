@@ -1,10 +1,3 @@
-/**
- * Pontuação de correspondência entre o termo digitado e um texto candidato.
- *
- * As regras formam uma cadeia ordenada (strategy): a primeira que casa decide a nota.
- * Nota 0 = não casa; 1 = igual. Tudo é comparado sem acento e sem caixa.
- */
-
 export interface WeightedField {
   readonly value: string | undefined;
   readonly weight: number;
@@ -26,7 +19,6 @@ export const normalizeText = (text: string): string =>
 
 const splitWords = (text: string): string[] => text.split(WORD_SEPARATORS).filter(Boolean);
 
-/** Bônus de até `range` proporcional a quanto do candidato o termo cobre. */
 const coverageBonus = (context: MatchContext, range: number): number =>
   range * (context.term.length / context.candidate.length);
 
@@ -40,7 +32,6 @@ const matchWordPrefix: MatchRule = (context) =>
     ? 0.7 + coverageBonus(context, 0.1)
     : 0;
 
-/** Termo com várias palavras: cada uma precisa começar alguma palavra do candidato. */
 const matchAllWords: MatchRule = ({ term, words }) => {
   const parts = term.split(" ");
   if (parts.length < 2) return 0;
@@ -59,7 +50,6 @@ const matchAcronym: MatchRule = ({ term, words }) => {
   return initials.startsWith(term) ? 0.45 : 0;
 };
 
-/** Letras do termo aparecem em ordem no candidato; quanto mais juntas, maior a nota. */
 const matchSubsequence: MatchRule = ({ term, candidate }) => {
   let position = -1;
   let first = -1;

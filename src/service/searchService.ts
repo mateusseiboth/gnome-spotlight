@@ -1,9 +1,3 @@
-/**
- * Orquestra uma busca: lê o modo, consulta em paralelo os provedores daquele modo, junta,
- * remove repetidos, ordena por relevância e corta no limite configurado.
- *
- * Provedor que falha é registrado e ignorado: uma pasta ilegível não pode esconder os apps.
- */
 import { parseQuery } from "@domain/query/queryParser";
 import { byRelevance } from "@domain/search/resultOrdering";
 import type { SearchProvider } from "@domain/search/searchProvider";

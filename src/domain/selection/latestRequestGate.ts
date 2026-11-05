@@ -1,6 +1,3 @@
-/**
- * Só a busca mais recente pode atualizar a lista: respostas atrasadas são descartadas.
- */
 export class LatestRequestGate {
   private latest = 0;
 

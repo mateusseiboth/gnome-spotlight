@@ -1,7 +1,3 @@
-/**
- * Apps instalados via `Shell.AppSystem`, com a frequência de uso do `Shell.AppUsage`.
- * A lista fica em cache e é refeita quando o Shell avisa `installed-changed`.
- */
 import type GioUnix from "gi://GioUnix";
 import Shell from "gi://Shell";
 
@@ -54,7 +50,6 @@ export class ShellAppCatalog implements AppCatalog {
     return this.cache;
   }
 
-  /** Posição na lista de mais usados vira nota de 1 (o primeiro) até perto de 0. */
   private buildUsageMap(): Map<string, number> {
     const mostUsed = this.usage.get_most_used();
     return new Map(mostUsed.map((app, index) => [app.get_id(), 1 - index / mostUsed.length]));

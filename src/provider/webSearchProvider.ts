@@ -1,6 +1,3 @@
-/**
- * Busca na web: com `?` é o resultado principal; no modo padrão entra como último recurso.
- */
 import type { SearchSettings, UriLauncher } from "@domain/launcher/launcherPorts";
 import { QueryMode, type ParsedQuery } from "@domain/query/queryParser";
 import { ResultKind, type SearchResult } from "@domain/search/searchResult";

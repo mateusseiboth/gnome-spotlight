@@ -1,7 +1,3 @@
-/**
- * Janelas normais abertas em todas as áreas de trabalho, com o app dono via
- * `Shell.WindowTracker`.
- */
 import Meta from "gi://Meta";
 import Shell from "gi://Shell";
 import * as Main from "resource:///org/gnome/shell/ui/main.js";

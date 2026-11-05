@@ -1,10 +1,10 @@
 {
-  "uuid": "gnome-spotlight@mateusseiboth.github.io",
-  "name": "Spotlight",
-  "description": "Search bar on Super+Space, inspired by macOS Spotlight and the COSMIC launcher: apps, open windows, calculations, commands, files, system actions and web search.",
+  "uuid": "launchpad-search@mateusseiboth.github.io",
+  "name": "Launchpad Search",
+  "description": "Search bar on Super+Alt+Space: apps, open windows, calculations, commands, files, system actions and web search.\n\nPressing Enter on a calculation copies the result to the clipboard. The shortcut can be changed in the preferences.",
   "shell-version": ["50", "51"],
   "url": "https://github.com/mateusseiboth/gnome-spotlight",
-  "settings-schema": "org.gnome.shell.extensions.gnome-spotlight",
-  "gettext-domain": "gnome-spotlight",
+  "settings-schema": "org.gnome.shell.extensions.launchpad-search",
+  "gettext-domain": "launchpad-search",
   "version-name": "1.0.0"
 }

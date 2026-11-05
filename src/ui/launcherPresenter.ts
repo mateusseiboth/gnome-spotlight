@@ -1,12 +1,8 @@
-/**
- * Lógica da janela de busca, sem St: reage ao texto, à navegação e à ativação, e manda a
- * view desenhar. A view St (`SpotlightOverlay`) só traduz eventos em chamadas daqui.
- */
 import type { SearchResult } from "@domain/search/searchResult";
 import { LatestRequestGate } from "@domain/selection/latestRequestGate";
 import { SelectionCursor } from "@domain/selection/selectionCursor";
 
-export interface SpotlightView {
+export interface LauncherView {
   renderResults(results: readonly SearchResult[], selectedIndex: number): void;
   renderSelection(selectedIndex: number): void;
   setQueryText(text: string): void;
@@ -16,14 +12,14 @@ export interface SpotlightView {
 export type SearchFunction = (raw: string) => Promise<readonly SearchResult[]>;
 export type ErrorListener = (error: unknown) => void;
 
-export class SpotlightPresenter {
+export class LauncherPresenter {
   private results: readonly SearchResult[] = [];
   private readonly cursor = new SelectionCursor();
   private readonly gate = new LatestRequestGate();
 
   constructor(
     private readonly search: SearchFunction,
-    private readonly view: SpotlightView,
+    private readonly view: LauncherView,
     private readonly onError: ErrorListener = () => {},
   ) {}
 
@@ -44,7 +40,6 @@ export class SpotlightPresenter {
     await this.onActivateAt(this.cursor.index);
   }
 
-  /** Fecha antes de ativar: o foco precisa voltar às janelas para o app abrir na frente. */
   async onActivateAt(index: number): Promise<void> {
     const selected = this.results[index];
     if (!selected) return;
@@ -64,7 +59,6 @@ export class SpotlightPresenter {
     this.view.setQueryText(completion);
   }
 
-  /** Como no Spotlight do macOS: o primeiro Esc limpa, o segundo fecha. */
   onEscape(currentText: string): void {
     if (currentText) {
       this.view.setQueryText("");

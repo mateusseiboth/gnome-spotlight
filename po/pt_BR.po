@@ -1,7 +1,7 @@
-# Tradução pt-BR da extensão gnome-spotlight.
+# Tradução pt-BR da extensão launchpad-search.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-spotlight\n"
+"Project-Id-Version: launchpad-search\n"
 "PO-Revision-Date: 2026-10-12 00:00-0400\n"
 "Last-Translator: Mateus Seiboth\n"
 "Language-Team: Portuguese (Brazil)\n"

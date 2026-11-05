@@ -1,6 +1,3 @@
-/**
- * Converte o ícone do domínio nas propriedades do `St.Icon`.
- */
 import type Gio from "gi://Gio";
 
 import type { SearchIcon } from "@domain/search/searchResult";

@@ -1,6 +1,3 @@
-/**
- * Factory dos provedores de busca. Fonte nova = um provedor novo + uma linha aqui.
- */
 import type { AppCatalog } from "@domain/apps/appPorts";
 import type { DirectoryReader } from "@domain/files/filePorts";
 import type {

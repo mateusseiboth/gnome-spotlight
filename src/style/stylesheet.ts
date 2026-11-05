@@ -1,15 +1,3 @@
-/**
- * Folha de estilo da busca. UM molde, tokens de cor por variante (strategy map): o CSS
- * claro e o escuro nunca divergem em layout. O build grava `stylesheet-dark.css`,
- * `stylesheet-light.css` e `stylesheet.css` (fallback = escuro), que o Shell escolhe
- * conforme `Main.getStyleVariant()`.
- *
- * O fundo do painel vem de duas classes: `spotlight-panel-glass` (translúcido, com o Blur
- * my Shell desfocando atrás) e `spotlight-panel-solid` (sem blur disponível). O raio de
- * 18px é o `dialog-corner-radius` padrão do Blur my Shell: raios diferentes deixam o blur
- * sobrando nos cantos.
- */
-
 export const ThemeVariant = {
   DARK: "dark",
   LIGHT: "light",
@@ -51,7 +39,7 @@ const THEME_TOKENS: Record<ThemeVariant, ThemeTokens> = {
 };
 
 const TEMPLATE = `
-.spotlight-panel {
+.launcher-panel {
   width: 640px;
   padding: 8px;
   border-radius: 18px;
@@ -59,15 +47,15 @@ const TEMPLATE = `
   border: 1px solid {{panelBorder}};
 }
 
-.spotlight-panel-glass {
+.launcher-panel-glass {
   background-color: {{panelGlass}};
 }
 
-.spotlight-panel-solid {
+.launcher-panel-solid {
   background-color: {{panelSolid}};
 }
 
-.spotlight-entry {
+.launcher-entry {
   padding: 10px 12px;
   font-size: 1.3em;
   color: {{text}};
@@ -79,72 +67,72 @@ const TEMPLATE = `
   box-shadow: none;
 }
 
-.spotlight-entry-icon {
+.launcher-entry-icon {
   icon-size: 18px;
   padding-right: 6px;
   color: {{dimText}};
 }
 
-.spotlight-separator {
+.launcher-separator {
   height: 1px;
   margin: 4px 6px 6px;
   background-color: {{separator}};
 }
 
-.spotlight-scroll {
+.launcher-scroll {
   max-height: 460px;
 }
 
-.spotlight-results {
+.launcher-results {
   spacing: 2px;
 }
 
-.spotlight-result {
+.launcher-result {
   padding: 7px 10px;
   border-radius: 12px;
   color: {{text}};
   background-color: transparent;
 }
 
-.spotlight-result:hover {
+.launcher-result:hover {
   background-color: {{hoverBackground}};
 }
 
-.spotlight-result:selected {
+.launcher-result:selected {
   color: -st-accent-fg-color;
   background-color: -st-accent-color;
 }
 
-.spotlight-result-row {
+.launcher-result-row {
   spacing: 12px;
 }
 
-.spotlight-result-icon {
+.launcher-result-icon {
   icon-size: 24px;
   padding: 4px;
   border-radius: 8px;
   background-color: {{iconTile}};
 }
 
-.spotlight-result-title {
+.launcher-result-title {
   font-weight: 600;
 }
 
-.spotlight-result-subtitle {
+.launcher-result-subtitle {
   font-size: 0.82em;
   color: {{dimText}};
 }
 
-.spotlight-result-kind {
+.launcher-result-kind {
   font-size: 0.8em;
   color: {{dimText}};
 }
 
-.spotlight-result:selected .spotlight-result-subtitle {
+.launcher-result:selected .launcher-result-subtitle {
   color: -st-accent-fg-color;
 }
 
-.spotlight-result:selected .spotlight-result-kind {
+.launcher-result:selected .launcher-result-kind {
   color: -st-accent-fg-color;
 }
 `;

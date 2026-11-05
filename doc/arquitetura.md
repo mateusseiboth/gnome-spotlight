@@ -2,7 +2,7 @@
 
 ## Fluxo de uma busca
 
-1. `SpotlightOverlay` (St) recebe o texto da caixa e chama `SpotlightPresenter.onQueryChanged`.
+1. `LauncherOverlay` (St) recebe o texto da caixa e chama `LauncherPresenter.onQueryChanged`.
 2. O presenter pede um token ao `LatestRequestGate` e chama `SearchService.search`.
 3. O serviço lê o modo com `parseQuery` (prefixo), filtra os provedores que atendem o modo e
    consulta todos em paralelo com `Promise.allSettled`.
@@ -18,12 +18,12 @@
 | Pasta | Papel | Pode importar valor de `gi://`? |
 | --- | --- | --- |
 | `src/domain` | Regras puras: casamento de texto, calculadora, caminhos, terminal, atalho | Não |
-| `src/service` | `SearchService`, `KeybindingConflictService` | Não |
+| `src/service` | `SearchService` | Não |
 | `src/provider` | Uma strategy por fonte de resultado + a factory | Não |
-| `src/ui/spotlightPresenter.ts` | Interação (setas, Enter, Tab, Esc) | Não |
+| `src/ui/launcherPresenter.ts` | Interação (setas, Enter, Tab, Esc) | Não |
 | `src/ui` (resto) | View St | Sim |
 | `src/infra/gnome` | Adaptadores das portas (`AppCatalog`, `WindowCatalog`...) | Sim |
-| `src/app` | `SpotlightSession`, a raiz de composição | Sim |
+| `src/app` | `LauncherSession`, a raiz de composição | Sim |
 | `src/prefs` | Linha de captura de atalho (GTK 4) | Sim |
 
 As portas ficam em `src/domain/*/…Ports.ts`. Cada adaptador do Shell implementa uma.
@@ -31,17 +31,17 @@ Os testes usam portas falsas em `test/support/fakes.ts`.
 
 ## Ciclo de vida
 
-`enable()` cria a `SpotlightSession` e chama `start()`: libera o atalho em conflito, registra
-o atalho com `Main.wm.addKeybinding` e passa a ouvir mudanças do atalho. `disable()` chama
-`stop()`, que remove o atalho, destrói a view, solta o sinal do `AppSystem` e devolve o
-atalho liberado.
+`enable()` cria a `LauncherSession` e chama `start()`, que registra o atalho com
+`Main.wm.addKeybinding`. O mutter relê a chave sozinho quando o atalho muda nas preferências.
+`disable()` chama `stop()`, que remove o atalho, destrói a view e solta o sinal do `AppSystem`.
+
+A extensão não mexe em atalho do sistema. O padrão é Super+Alt+Espaço, que o GNOME não usa;
+Super+Espaço continua sendo "trocar fonte de entrada".
 
 ## Decisões
 
 - Presenter separado da view para poder testar interação sem St. A view só traduz evento em
   chamada (mapa de teclas em `KEY_ACTIONS`).
-- O registro do atalho liberado fica em GSettings (`released-keybindings`), não em memória.
-  Se o Shell cair com a extensão ativa, o próximo `disable()` ainda sabe o que devolver.
 - Ações do sistema usam o `misc/systemActions.js` do Shell. Ele já sabe o que está
   disponível agora e casa as palavras-chave traduzidas, então a extensão não mantém lista
   própria.

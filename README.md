@@ -1,8 +1,7 @@
-# Spotlight para GNOME Shell
+# Launchpad Search para GNOME Shell
 
-Barra de busca no Super+Espaço, no estilo do Spotlight do macOS e do launcher do COSMIC.
-Digite e ela acha apps, janelas abertas, faz contas, roda comandos, navega por pastas,
-dispara ações do sistema e pesquisa na web.
+Barra de busca no Super+Alt+Espaço. Digite e ela acha apps, janelas abertas, faz contas, roda
+comandos, navega por pastas, dispara ações do sistema e pesquisa na web.
 
 Feita para o GNOME Shell 50 e 51.
 
@@ -33,13 +32,11 @@ acos atan round floor ceil`. Se a conta usou vírgula, a resposta vem com vírgu
 
 ## Atalho
 
-O padrão é Super+Espaço. Dá para trocar nas preferências (linha "Atalho", botão "Alterar",
-pressione a combinação; Backspace deixa sem atalho).
+O padrão é Super+Alt+Espaço. Dá para trocar nas preferências (linha "Atalho", botão
+"Alterar", pressione a combinação; Backspace deixa sem atalho).
 
-No GNOME, Super+Espaço já pertence a "trocar fonte de entrada". Ao ativar, a extensão tira
-esse acelerador de `org.gnome.desktop.wm.keybindings switch-input-source` e guarda o que
-tirou. Ao desativar, devolve na mesma posição. Quem usa mais de um layout de teclado ainda
-troca pelo `XF86Keyboard` ou por outro atalho que configurar.
+A extensão não mexe nos atalhos do sistema. Para usar Super+Espaço, tire antes esse atalho de
+"Trocar para a próxima fonte de entrada" em Configurações > Teclado > Atalhos.
 
 ## Preferências
 
@@ -53,7 +50,7 @@ troca pelo `XF86Keyboard` ou por outro atalho que configurar.
 ```bash
 bun install
 bun run install:local   # build + cópia para ~/.local/share/gnome-shell/extensions
-gnome-extensions enable gnome-spotlight@mateusseiboth.github.io
+gnome-extensions enable launchpad-search@mateusseiboth.github.io
 ```
 
 No Wayland o Shell só carrega extensão nova, ou código novo de uma já carregada, depois de
@@ -67,7 +64,19 @@ bun run lint           # oxlint --type-aware
 bun run typecheck      # TypeScript 7, três projetos (src, test, scripts)
 bun test               # domínio, provedores, serviço e presenter
 bun run build          # dist/ pronto para o Shell
-bun scripts/extract-messages.ts   # regenera po/gnome-spotlight.pot
+bun run pack           # build + zip para o extensions.gnome.org
+bun scripts/extract-messages.ts   # regenera po/launchpad-search.pot
 ```
 
+O build transpila cada módulo de `src/` para um `.js` em `dist/` (mesma árvore, imports
+relativos, sem comentários) e formata com o oxfmt. O código enviado ao extensions.gnome.org
+fica legível para a revisão.
+
+O `pack` gera `launchpad-search@mateusseiboth.github.io.shell-extension.zip` sem o
+`gschemas.compiled`: o Shell compila o schema ao instalar pelo site.
+
 A arquitetura, as regras de busca e o que foi descoberto sobre o Shell 50 estão em `doc/`.
+
+## Licença
+
+GPL-2.0-or-later. Texto em `LICENSE`.

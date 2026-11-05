@@ -1,7 +1,3 @@
-/**
- * Abre URLs e caminhos no aplicativo padrão, com o contexto de lançamento do Shell
- * (notificação de início e área de trabalho certa).
- */
 import Gio from "gi://Gio";
 
 import type { UriLauncher } from "@domain/launcher/launcherPorts";

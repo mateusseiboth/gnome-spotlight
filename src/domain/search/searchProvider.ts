@@ -1,6 +1,3 @@
-/**
- * Strategy de uma fonte de resultados. Cada provedor declara os modos que atende.
- */
 import type { ParsedQuery, QueryMode } from "@domain/query/queryParser";
 import type { SearchResult } from "@domain/search/searchResult";
 

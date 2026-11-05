@@ -5,7 +5,7 @@
 import { describe, expect, test } from "bun:test";
 
 import { ResultKind, type SearchResult } from "@domain/search/searchResult";
-import { SpotlightPresenter, type SpotlightView } from "@ui/spotlightPresenter";
+import { LauncherPresenter, type LauncherView } from "@ui/launcherPresenter";
 
 const result = (
   id: string,
@@ -29,7 +29,7 @@ const result = (
 const makeView = () => {
   const calls: string[] = [];
   const state = { results: [] as readonly SearchResult[], selected: -1, text: "", closed: 0 };
-  const view: SpotlightView = {
+  const view: LauncherView = {
     renderResults: (results, selected) => {
       state.results = results;
       state.selected = selected;
@@ -55,10 +55,10 @@ const deferred = <T>() => {
   return { promise, resolve };
 };
 
-describe("SpotlightPresenter", () => {
+describe("LauncherPresenter", () => {
   test("digitar mostra os resultados com o primeiro selecionado", async () => {
     const { view, state } = makeView();
-    const presenter = new SpotlightPresenter(async () => [result("a"), result("b")], view);
+    const presenter = new LauncherPresenter(async () => [result("a"), result("b")], view);
 
     await presenter.onQueryChanged("x");
 
@@ -68,7 +68,7 @@ describe("SpotlightPresenter", () => {
 
   test("setas movem a seleção e dão a volta", async () => {
     const { view, state } = makeView();
-    const presenter = new SpotlightPresenter(async () => [result("a"), result("b")], view);
+    const presenter = new LauncherPresenter(async () => [result("a"), result("b")], view);
     await presenter.onQueryChanged("x");
 
     presenter.onMoveSelection(1);
@@ -85,7 +85,7 @@ describe("SpotlightPresenter", () => {
         calls.push("activate");
       },
     });
-    const presenter = new SpotlightPresenter(async () => [result("a"), second], view);
+    const presenter = new LauncherPresenter(async () => [result("a"), second], view);
     await presenter.onQueryChanged("x");
     presenter.onMoveSelection(1);
 
@@ -97,7 +97,7 @@ describe("SpotlightPresenter", () => {
   test("clique ativa a linha clicada", async () => {
     const { view } = makeView();
     const items = [result("a"), result("b")];
-    const presenter = new SpotlightPresenter(async () => items, view);
+    const presenter = new LauncherPresenter(async () => items, view);
     await presenter.onQueryChanged("x");
 
     await presenter.onActivateAt(1);
@@ -108,7 +108,7 @@ describe("SpotlightPresenter", () => {
 
   test("Enter sem resultado não fecha nem quebra", async () => {
     const { view, state } = makeView();
-    const presenter = new SpotlightPresenter(async () => [], view);
+    const presenter = new LauncherPresenter(async () => [], view);
     await presenter.onQueryChanged("x");
 
     await presenter.onActivateSelected();
@@ -118,7 +118,7 @@ describe("SpotlightPresenter", () => {
 
   test("Tab completa com o texto do resultado selecionado", async () => {
     const { view, state } = makeView();
-    const presenter = new SpotlightPresenter(
+    const presenter = new LauncherPresenter(
       async () => [result("pasta", { completion: "~/Documentos/" })],
       view,
     );
@@ -131,7 +131,7 @@ describe("SpotlightPresenter", () => {
 
   test("Tab sem completar disponível não mexe no texto", async () => {
     const { view, state } = makeView();
-    const presenter = new SpotlightPresenter(async () => [result("app")], view);
+    const presenter = new LauncherPresenter(async () => [result("app")], view);
     await presenter.onQueryChanged("fire");
 
     presenter.onComplete();
@@ -146,7 +146,7 @@ describe("SpotlightPresenter", () => {
       "~/D": slow.promise,
       "~/Do": Promise.resolve([result("novo")]),
     };
-    const presenter = new SpotlightPresenter((raw) => responses[raw]!, view);
+    const presenter = new LauncherPresenter((raw) => responses[raw]!, view);
 
     const first = presenter.onQueryChanged("~/D");
     await presenter.onQueryChanged("~/Do");
@@ -159,7 +159,7 @@ describe("SpotlightPresenter", () => {
   test("reset limpa a lista e invalida buscas em andamento", async () => {
     const { view, state } = makeView();
     const slow = deferred<SearchResult[]>();
-    const presenter = new SpotlightPresenter(() => slow.promise, view);
+    const presenter = new LauncherPresenter(() => slow.promise, view);
 
     const pending = presenter.onQueryChanged("x");
     presenter.reset();
@@ -177,7 +177,7 @@ describe("SpotlightPresenter", () => {
         throw new Error("sem terminal");
       },
     });
-    const presenter = new SpotlightPresenter(
+    const presenter = new LauncherPresenter(
       async () => [failing],
       view,
       (error) => errors.push(error),
@@ -192,7 +192,7 @@ describe("SpotlightPresenter", () => {
   test("erro na busca limpa a lista e vai para o tratador", async () => {
     const { view, state } = makeView();
     const errors: unknown[] = [];
-    const presenter = new SpotlightPresenter(
+    const presenter = new LauncherPresenter(
       async () => {
         throw new Error("falhou");
       },
@@ -208,7 +208,7 @@ describe("SpotlightPresenter", () => {
 
   test("Esc com texto limpa a busca e mantém a janela aberta", () => {
     const { view, state } = makeView();
-    const presenter = new SpotlightPresenter(async () => [], view);
+    const presenter = new LauncherPresenter(async () => [], view);
     state.text = "fire";
 
     presenter.onEscape("fire");
@@ -219,7 +219,7 @@ describe("SpotlightPresenter", () => {
 
   test("Esc sem texto fecha a janela", () => {
     const { view, state } = makeView();
-    const presenter = new SpotlightPresenter(async () => [], view);
+    const presenter = new LauncherPresenter(async () => [], view);
 
     presenter.onEscape("");
 

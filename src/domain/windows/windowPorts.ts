@@ -1,6 +1,3 @@
-/**
- * Porta das janelas abertas (no GNOME: `Shell.WindowTracker` + `Meta.Window`).
- */
 import type { SearchIcon } from "@domain/search/searchResult";
 
 export interface WindowEntry {

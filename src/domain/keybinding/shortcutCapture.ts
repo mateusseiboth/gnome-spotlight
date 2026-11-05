@@ -1,16 +1,7 @@
-/**
- * Regras da captura de atalho nas preferências. A primeira regra que se aplica decide
- * (cadeia de strategies). O nome da tecla é o do `Gdk.keyval_name`.
- */
-
 export const ShortcutCapture = {
-  /** Esc sozinho: desiste e mantém o atalho atual. */
   CANCEL: "cancel",
-  /** Backspace sozinho: deixa a busca sem atalho. */
   CLEAR: "clear",
-  /** Só modificadores até agora: continua esperando a tecla principal. */
   INCOMPLETE: "incomplete",
-  /** Combinação que atrapalharia a digitação normal. */
   INVALID: "invalid",
   ACCEPT: "accept",
 } as const;
@@ -30,7 +21,6 @@ const MODIFIER_KEY =
   /^(Super|Control|Alt|Shift|Meta|Hyper)_[LR]$|^ISO_Level\d_(Shift|Latch|Lock)$|^Caps_Lock$/;
 const FUNCTION_KEY = /^F\d{1,2}$/;
 
-/** Super, Ctrl e Alt "seguram" a tecla; Shift sozinho só muda a letra. */
 const hasCommandModifier = (press: ShortcutPress): boolean =>
   press.hasSuper || press.hasControl || press.hasAlt;
 

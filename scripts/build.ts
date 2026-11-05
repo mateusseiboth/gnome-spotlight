@@ -1,40 +1,56 @@
-import { cpSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
-import { basename, join } from "node:path";
+import { cpSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { basename, dirname, join } from "node:path";
 
-/**
- * Monta a extensão em `dist/` no formato que o GNOME Shell carrega:
- *
- *   extension.js, prefs.js   bundle ESM (aliases resolvidos; `gi://` e `resource://` externos)
- *   stylesheet*.css          gerados pelo `buildStylesheet` (claro, escuro e fallback)
- *   metadata.json, schemas/  copiados; o schema é compilado aqui
- *   locale/<lang>/...mo      compilados a partir de `po/*.po`
- */
 import { $ } from "bun";
 
+import { readSourceAliases, rewriteAliasImports } from "@scripts/build/moduleTranspiler";
 import { buildStylesheet, ThemeVariant } from "@style/stylesheet";
 
 const ROOT = join(import.meta.dir, "..");
+const SRC = join(ROOT, "src");
 const DIST = join(ROOT, "dist");
-const DOMAIN = "gnome-spotlight";
+const ENTRY_MODULES = ["extension", "prefs"];
 
-/** O bundle não pode embutir o que só existe dentro do GJS/Shell. */
-const RUNTIME_EXTERNALS = ["gi://*", "resource://*"];
+const readJson = <T>(path: string): T => JSON.parse(readFileSync(path, "utf8")) as T;
 
-const bundle = async (): Promise<void> => {
-  const result = await Bun.build({
-    entrypoints: [join(ROOT, "src/extension.ts"), join(ROOT, "src/prefs.ts")],
-    outdir: DIST,
-    format: "esm",
-    target: "browser",
-    external: RUNTIME_EXTERNALS,
-    minify: false,
-    splitting: false,
-  });
+const { "gettext-domain": DOMAIN } = readJson<{ "gettext-domain": string }>(
+  join(ROOT, "metadata.json"),
+);
+const ALIASES = readSourceAliases(
+  readJson<{ compilerOptions: { paths: Record<string, string[]> } }>(
+    join(ROOT, "tsconfig.base.json"),
+  ).compilerOptions.paths,
+);
 
-  if (!result.success) {
-    result.logs.forEach((log) => console.error(log));
-    throw new Error("Falha no bundle.");
+const transpiler = new Bun.Transpiler({ loader: "ts", target: "browser" });
+
+const transpileModule = (module: string): readonly string[] => {
+  const source = readFileSync(join(SRC, `${module}.ts`), "utf8");
+  const { code, dependencies } = rewriteAliasImports(
+    transpiler.transformSync(source),
+    module,
+    ALIASES,
+  );
+  const target = join(DIST, `${module}.js`);
+
+  mkdirSync(dirname(target), { recursive: true });
+  writeFileSync(target, code);
+  return dependencies;
+};
+
+const transpileReachableModules = (): string[] => {
+  const modules = [...ENTRY_MODULES];
+
+  for (const module of modules) {
+    const fresh = transpileModule(module).filter((dependency) => !modules.includes(dependency));
+    modules.push(...new Set(fresh));
   }
+
+  return modules.map((module) => join(DIST, `${module}.js`));
+};
+
+const formatModules = async (files: readonly string[]): Promise<void> => {
+  await $`${join(ROOT, "node_modules/.bin/oxfmt")} ${files}`.cwd(ROOT).quiet();
 };
 
 const writeStylesheets = (): void => {
@@ -45,6 +61,7 @@ const writeStylesheets = (): void => {
 
 const copyStatic = async (): Promise<void> => {
   cpSync(join(ROOT, "metadata.json"), join(DIST, "metadata.json"));
+  cpSync(join(ROOT, "LICENSE"), join(DIST, "LICENSE"));
   cpSync(join(ROOT, "schemas"), join(DIST, "schemas"), { recursive: true });
   await $`glib-compile-schemas --strict ${join(DIST, "schemas")}`;
 };
@@ -61,7 +78,7 @@ const compileTranslations = async (): Promise<void> => {
 };
 
 rmSync(DIST, { recursive: true, force: true });
-await bundle();
+await formatModules(transpileReachableModules());
 writeStylesheets();
 await copyStatic();
 await compileTranslations();

@@ -1,7 +1,11 @@
-# gnome-spotlight
+# launchpad-search (repositório gnome-spotlight)
 
-Extensão do GNOME Shell 50 em TypeScript 7, empacotada com `bun build`. Leia `doc/` antes
-de mexer: lá estão a arquitetura, as regras de busca e as armadilhas do Shell.
+Extensão do GNOME Shell 50 e 51 em TypeScript 7, publicada no extensions.gnome.org como
+"Launchpad Search". Leia `doc/` antes de mexer: lá estão a arquitetura, as regras de busca e
+as armadilhas do Shell.
+
+O nome da loja só aparece em `metadata.json`, no id do schema, no domínio de tradução e no
+prefixo do log. Classes, arquivos e classes CSS usam o nome genérico `Launcher`/`launcher-`.
 
 ## Regras deste repositório
 
@@ -11,8 +15,15 @@ de mexer: lá estão a arquitetura, as regras de busca e as armadilhas do Shell.
   presenter NUNCA importam valor de `gi://` ou `resource://`, só `import type`. É isso que
   deixa o `bun test` rodar sem GNOME.
 - Imports sempre por alias (`@domain/*`, `@service/*`...). Os aliases existem em
-  `tsconfig.base.json` E `bunfig.toml`. O bundle resolve os aliases; `gi://*` e
-  `resource://*` ficam externos (`scripts/build.ts`).
+  `tsconfig.base.json` E `bunfig.toml`. O build transpila cada módulo alcançável a partir de
+  `extension.ts` e `prefs.ts` para um `.js` em `dist/`, troca o alias por caminho relativo
+  (`scripts/build/moduleTranspiler.ts`, aliases lidos do `tsconfig.base.json`) e formata com
+  o oxfmt. Nada de bundle em arquivo único: o revisor do extensions.gnome.org lê o `dist/`.
+- `src/` não tem comentário (o teste `sourceComments` reprova). O porquê das decisões mora
+  em `doc/` e nas armadilhas abaixo. Revisor do extensions.gnome.org rejeita código com
+  cara de prompt de LLM.
+- A extensão não altera configuração de outro schema (atalho do sistema, por exemplo). O
+  atalho padrão é Super+Alt+Espaço justamente para não brigar com "trocar fonte de entrada".
 - Fonte nova de busca = classe nova em `src/provider/` + uma linha em
   `searchProviderFactory.ts`. Nada de `if` por tipo no serviço.
 - Texto de tela vai em inglês no código, marcado com `t("...")` (domínio) ou `_("...")`
@@ -20,6 +31,7 @@ de mexer: lá estão a arquitetura, as regras de busca e as armadilhas do Shell.
   mensagem sem tradução em `po/pt_BR.po`, tradução órfã e travessão.
 - CSS só no molde de `src/style/stylesheet.ts`; claro e escuro saem do mesmo molde.
 - Portão de saída: `bun run format:check && bun run lint && bun run typecheck && bun test`.
+- Envio: `bun run pack` gera o zip sem `gschemas.compiled` (o Shell compila ao instalar).
 
 ## Armadilhas que já custaram tempo
 
@@ -32,6 +44,9 @@ de mexer: lá estão a arquitetura, as regras de busca e as armadilhas do Shell.
 - `Gio.DesktopAppInfo` agora é `GioUnix.DesktopAppInfo`.
 - No Shell 50 o `Main.pushModal` não devolve mais estado de grab (`Clutter.GrabState` sumiu).
 - Mudança só aparece no Shell real depois de logout/login (Wayland).
+- A captura de atalho nas preferências pede `inhibit_system_shortcuts` à janela. Sem isso o
+  Shell consome qualquer atalho global (o próprio atalho da busca, inclusive) antes de a
+  janela de preferências receber a tecla.
 - Posição do painel é explícita (`AlignConstraint` no X, `y` calculado). Com `BinLayout` +
   `y_align: START` o Shell 50 centralizou o painel e o jogou para baixo do meio da tela.
 - O `modalDialogGroup` usa `BinLayout`: `set_position`/`set_size` no fundo da busca não
@@ -48,3 +63,10 @@ de mexer: lá estão a arquitetura, as regras de busca e as armadilhas do Shell.
   (o anel de `StEntry:focus` continuou mesmo com `!important` na nossa). Para mudar
   propriedade que o tema já define num ator nativo, use estilo inline (`style:` /
   `set_style`), que o St aplica por último.
+
+## Duplicado de propósito
+
+`scripts/build.ts`, `scripts/pack.ts`, `scripts/build/moduleTranspiler.ts` (e o teste dele),
+o teste `sourceComments`, `scripts/i18n/messageCatalog.ts`, `scripts/install.ts`, as configs
+de oxlint/oxfmt e `src/types/*.d.ts` existem iguais no repositório
+`quick-settings-notifications`. Alterou um, replique no outro na mesma tarefa.

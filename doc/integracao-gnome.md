@@ -13,10 +13,10 @@ Conferido contra o código do gnome-shell 50.5 instalado (extraído de
 | Abrir URL e arquivo | `Gio.AppInfo.launch_default_for_uri` com `global.create_app_launch_context` | `shellLauncher.ts` |
 | Área de transferência | `St.Clipboard.get_default().set_text(CLIPBOARD, ...)` | `stClipboard.ts` |
 | Rodar comando | `misc/util.js` `trySpawn` | `shellCommandRunner.ts` |
-| Atalho global | `Main.wm.addKeybinding` / `removeKeybinding` | `spotlightSession.ts` |
-| Janela modal | `Main.pushModal(actor, {actionMode: SYSTEM_MODAL})`, ator em `Main.layoutManager.modalDialogGroup` | `spotlightOverlay.ts` |
-| Blur do painel | Blur my Shell: classe `clipboard-dialog` no painel; detecção por `global.blur_my_shell` | `spotlightOverlay.ts`, `blurProvider.ts` |
-| Rolagem até a linha | `misc/animationUtils.js` `ensureActorVisibleInScrollView` | `spotlightOverlay.ts` |
+| Atalho global | `Main.wm.addKeybinding` / `removeKeybinding` | `launcherSession.ts` |
+| Janela modal | `Main.pushModal(actor, {actionMode: SYSTEM_MODAL})`, ator em `Main.layoutManager.modalDialogGroup` | `launcherOverlay.ts` |
+| Blur do painel | Blur my Shell: classe `clipboard-dialog` no painel; detecção por `global.blur_my_shell` | `launcherOverlay.ts`, `blurProvider.ts` |
+| Rolagem até a linha | `misc/animationUtils.js` `ensureActorVisibleInScrollView` | `launcherOverlay.ts` |
 | CSS claro/escuro | O Shell carrega `stylesheet-<variante>.css` antes de `stylesheet.css` (`extensionSystem.js`) | `scripts/build.ts` |
 | Tradução | `this.gettext` da instância de `Extension` | `extension.ts` |
 

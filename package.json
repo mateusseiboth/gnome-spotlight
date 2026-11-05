@@ -1,10 +1,12 @@
 {
-  "name": "gnome-spotlight",
+  "name": "launchpad-search",
   "version": "1.0.0",
   "private": true,
+  "license": "GPL-2.0-or-later",
   "type": "module",
   "scripts": {
     "build": "bun scripts/build.ts",
+    "pack": "bun scripts/build.ts && bun scripts/pack.ts",
     "install:local": "bun scripts/build.ts && bun scripts/install.ts",
     "format": "oxfmt src scripts test package.json",
     "format:check": "oxfmt --check src scripts test package.json",

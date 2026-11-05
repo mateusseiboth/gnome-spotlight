@@ -1,7 +1,3 @@
-/**
- * Janelas abertas, pelo título ou pelo nome do app. Pesam um pouco menos que o app de
- * mesmo nome: digitar "firefox" abre o app primeiro e a janela logo abaixo.
- */
 import { QueryMode, type ParsedQuery } from "@domain/query/queryParser";
 import { byRelevance } from "@domain/search/resultOrdering";
 import { ResultKind, type SearchResult } from "@domain/search/searchResult";

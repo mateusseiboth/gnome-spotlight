@@ -26,6 +26,6 @@ describe("buildStylesheet", () => {
     const css = buildStylesheet(ThemeVariant.DARK);
     const classes = [...css.matchAll(/\.([a-z][\w-]*)/g)].map((m) => m[1]);
 
-    expect(classes.every((name) => name?.startsWith("spotlight-"))).toBe(true);
+    expect(classes.every((name) => name?.startsWith("launcher-"))).toBe(true);
   });
 });

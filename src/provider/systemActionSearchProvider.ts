@@ -1,7 +1,3 @@
-/**
- * Ações do sistema (bloquear, suspender, desligar...). Quem casa as palavras-chave
- * traduzidas é o próprio Shell; aqui só se pontua pelo nome, com nota mínima garantida.
- */
 import { QueryMode, type ParsedQuery } from "@domain/query/queryParser";
 import { ResultKind, type SearchResult } from "@domain/search/searchResult";
 import type { SystemActionCatalog, SystemActionEntry } from "@domain/system/systemActionPorts";

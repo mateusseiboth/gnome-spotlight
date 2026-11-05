@@ -1,12 +1,3 @@
-/**
- * Calculadora da busca. Parser descendente recursivo que avalia enquanto lê, sem `eval`.
- *
- * Precedência, da menor para a maior:
- *   soma/subtração  <  multiplicação/divisão (inclui multiplicação implícita: `2pi`, `2(3)`)
- *   <  sinal unário  <  potência (associativa à direita)  <  pós-fixos `%` e `!`
- *
- * Por isso `-2^2` é -4 e `2^-1` é 0,5, como nas calculadoras científicas.
- */
 import {
   CalculatorSyntaxError,
   tokenize,
@@ -82,7 +73,6 @@ const POSTFIX: Record<string, (value: number) => number> = {
   "!": factorial,
 };
 
-/** Token que, logo após um fator completo, indica multiplicação implícita. */
 const IMPLICIT_MULTIPLICATION_STARTERS: ReadonlySet<TokenType> = new Set([
   TokenType.NUMBER,
   TokenType.IDENTIFIER,
@@ -112,7 +102,6 @@ class ExpressionParser {
     return token;
   }
 
-  /** Se o próximo token é um operador da tabela, consome e devolve a operação. */
   private takeOperator<T>(table: Record<string, T>): T | undefined {
     const next = this.peek();
     if (next?.type !== TokenType.OPERATOR) return undefined;
@@ -214,7 +203,6 @@ class ExpressionParser {
   }
 }
 
-/** Remove o ruído binário (0,1 + 0,2 = 0,30000000000000004) mantendo 12 dígitos. */
 const roundSignificant = (value: number): number => Number(value.toPrecision(SIGNIFICANT_DIGITS));
 
 const parseTokens = (expression: string): Token[] | null => {
@@ -248,10 +236,6 @@ const isOperationToken = (token: Token): boolean =>
   token.type === TokenType.OPEN_PAREN ||
   token.text in FUNCTIONS;
 
-/**
- * "Isto parece uma conta?" no modo padrão (sem `=`). Exige um dígito e uma operação, para
- * que digitar `e` ou `pi` procurando um app não jogue a calculadora no topo.
- */
 export const isMathExpression = (term: string): boolean => {
   if (!/\d/.test(term)) return false;
 
@@ -261,7 +245,6 @@ export const isMathExpression = (term: string): boolean => {
   return evaluateTokens(tokens).ok;
 };
 
-/** Quem digitou `2,5` espera a resposta com vírgula. */
 export const detectDecimalSeparator = (expression: string): string =>
   /\d,\d/.test(expression) ? "," : ".";
 

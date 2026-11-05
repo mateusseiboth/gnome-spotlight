@@ -1,5 +1,3 @@
-// Módulos `gi://` usados pelo código. Este arquivo vale para os DOIS projetos de
-// typecheck (src e testes): o domínio puro importa tipos do Gio (`import type`).
 import "@girs/st-18/ambient";
 import "@girs/clutter-18/ambient";
 import "@girs/shell-18/ambient";

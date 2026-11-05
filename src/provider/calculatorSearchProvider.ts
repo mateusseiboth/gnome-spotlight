@@ -1,7 +1,3 @@
-/**
- * Contas. No modo padrão só aparece quando o texto parece conta; com `=` aceita qualquer
- * expressão válida. Enter copia o resultado.
- */
 import {
   detectDecimalSeparator,
   evaluateExpression,

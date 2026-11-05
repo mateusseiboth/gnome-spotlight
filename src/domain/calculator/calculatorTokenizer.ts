@@ -1,8 +1,3 @@
-/**
- * Quebra a expressão em tokens. Aceita vírgula ou ponto como separador decimal (não há
- * função com mais de um argumento, então a vírgula nunca separa argumentos).
- */
-
 export const TokenType = {
   NUMBER: "number",
   IDENTIFIER: "identifier",
@@ -30,7 +25,6 @@ interface TokenPattern {
   readonly normalize?: (text: string) => string;
 }
 
-/** Sinônimos tipográficos viram o operador ASCII equivalente. */
 const OPERATOR_ALIASES: Record<string, string> = { "×": "*", "÷": "/", "−": "-" };
 
 const TOKEN_PATTERNS: readonly TokenPattern[] = [

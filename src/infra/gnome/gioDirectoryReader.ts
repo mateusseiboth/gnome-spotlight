@@ -1,7 +1,3 @@
-/**
- * Lista uma pasta de forma assíncrona (não trava o Shell em pasta de rede lenta).
- * Lê no máximo `MAX_ENTRIES` itens: a lista exibida é curta de qualquer jeito.
- */
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 

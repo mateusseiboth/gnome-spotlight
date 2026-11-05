@@ -1,7 +1,3 @@
-/**
- * Apps instalados. Nome pesa mais que nome genérico e palavras-chave, que pesam mais que o
- * executável e a descrição. A frequência de uso só desempata (5% da nota).
- */
 import type { AppCatalog, AppEntry } from "@domain/apps/appPorts";
 import { QueryMode, type ParsedQuery } from "@domain/query/queryParser";
 import { byRelevance } from "@domain/search/resultOrdering";

@@ -1,10 +1,3 @@
-/**
- * Navegação por caminho (`/` ou `~`). Lista a pasta digitada e filtra pelo trecho final.
- *
- * Pastas vêm antes de arquivos; dentro de cada grupo a nota é arredondada em faixas de 0,1
- * para que nomes parecidos empatem e caiam em ordem alfabética, como num seletor de
- * arquivos, em vez de o mais curto pular na frente.
- */
 import type { DirectoryReader, FileEntry } from "@domain/files/filePorts";
 import { abbreviateHome, joinPath, parsePathQuery } from "@domain/files/pathQuery";
 import type { UriLauncher } from "@domain/launcher/launcherPorts";

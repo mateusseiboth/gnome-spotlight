@@ -1,7 +1,3 @@
-/**
- * Caminho digitado na busca de arquivos, separado em pasta a listar + trecho do nome.
- */
-
 export interface PathQuery {
   readonly directory: string;
   readonly partial: string;

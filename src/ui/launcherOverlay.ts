@@ -1,25 +1,3 @@
-/**
- * Janela de busca em St. É a view do `SpotlightPresenter`: desenha o que ele manda e
- * repassa teclado e clique.
- *
- * Posição: centro horizontal do monitor em foco, topo a 25% da altura. A posição é
- * EXPLÍCITA (AlignConstraint + y): com `BinLayout` + `y_align: START` o Shell 50 ignorava o
- * alinhamento e centralizava o painel, empurrando-o para baixo do meio da tela.
- *
- * Quem prende o fundo ao monitor é o `Layout.MonitorConstraint`, como no `ModalDialog` do
- * Shell. O `modalDialogGroup` usa `BinLayout`, que ignora `set_position`/`set_size` do
- * filho e o estica pela área de TODOS os monitores: com dois monitores o painel caía na
- * emenda entre eles.
- *
- * Blur: quem desfoca é o Blur my Shell, que já trata os cantos arredondados. O painel leva
- * a classe `clipboard-dialog` (uma das que ele reconhece em diálogos e que o tema do GNOME
- * não estiliza) e fica translúcido só quando o Blur my Shell está ativo. O
- * `Shell.BlurEffect` próprio foi descartado: sem raio de canto, ele deixava quinas
- * quadradas, e desfocar a tela inteira não é o efeito desejado.
- *
- * A caixa de busca usa estilo INLINE: o tema pinta `StEntry:focus` com fundo e anel
- * (`box-shadow ... !important`), e nenhuma regra da folha da extensão ganhou dele.
- */
 import Clutter from "gi://Clutter";
 import Shell from "gi://Shell";
 import St from "gi://St";
@@ -32,11 +10,11 @@ import { getResultKindLabel } from "@domain/search/resultKindLabel";
 import type { SearchResult } from "@domain/search/searchResult";
 import type { Translate } from "@i18n/translate";
 import { hasBlurMyShell } from "@infra/gnome/blurProvider";
+import type { LauncherPresenter, LauncherView } from "@ui/launcherPresenter";
 import { ResultRow } from "@ui/resultRow";
-import type { SpotlightPresenter, SpotlightView } from "@ui/spotlightPresenter";
 
-export type SpotlightListener = Pick<
-  SpotlightPresenter,
+export type LauncherListener = Pick<
+  LauncherPresenter,
   | "onQueryChanged"
   | "onMoveSelection"
   | "onActivateSelected"
@@ -48,18 +26,16 @@ export type SpotlightListener = Pick<
 
 const TOP_OFFSET_RATIO = 0.25;
 const OPEN_ANIMATION_MS = 140;
-/** Classe que o Blur my Shell reconhece como diálogo a desfocar. */
 const BLUR_TARGET_CLASS = "clipboard-dialog";
 const ENTRY_INLINE_STYLE = "background-color: transparent; box-shadow: none; border: none;";
 
 const PANEL_SURFACE_CLASSES: Record<PanelSurface, string> = {
-  [PanelSurface.GLASS]: "spotlight-panel-glass",
-  [PanelSurface.SOLID]: "spotlight-panel-solid",
+  [PanelSurface.GLASS]: "launcher-panel-glass",
+  [PanelSurface.SOLID]: "launcher-panel-solid",
 };
 
-type KeyAction = (listener: SpotlightListener, text: string) => void;
+type KeyAction = (listener: LauncherListener, text: string) => void;
 
-/** Teclas tratadas na caixa de busca (strategy map por símbolo). */
 const KEY_ACTIONS = new Map<number, KeyAction>([
   [Clutter.KEY_Escape, (listener, text) => listener.onEscape(text)],
   [Clutter.KEY_Up, (listener) => listener.onMoveSelection(-1)],
@@ -72,7 +48,7 @@ const KEY_ACTIONS = new Map<number, KeyAction>([
   [Clutter.KEY_Tab, (listener) => listener.onComplete()],
 ]);
 
-export class SpotlightOverlay implements SpotlightView {
+export class LauncherOverlay implements LauncherView {
   private readonly backdrop: St.Widget;
   private readonly monitorConstraint: MonitorConstraint;
   private readonly panel: St.BoxLayout;
@@ -82,30 +58,30 @@ export class SpotlightOverlay implements SpotlightView {
   private readonly resultsBox: St.BoxLayout;
   private rows: ResultRow[] = [];
   private grab: Clutter.Grab | null = null;
-  private listener: SpotlightListener | null = null;
+  private listener: LauncherListener | null = null;
 
   constructor(private readonly t: Translate) {
     this.entry = new St.Entry({
-      style_class: "spotlight-entry",
+      style_class: "launcher-entry",
       hint_text: t("Search apps, windows, files or type a calculation"),
       can_focus: true,
       x_expand: true,
       primary_icon: new St.Icon({
-        style_class: "spotlight-entry-icon",
+        style_class: "launcher-entry-icon",
         icon_name: "edit-find-symbolic",
       }),
       style: ENTRY_INLINE_STYLE,
     });
 
-    this.separator = new St.Widget({ style_class: "spotlight-separator", visible: false });
+    this.separator = new St.Widget({ style_class: "launcher-separator", visible: false });
 
     this.resultsBox = new St.BoxLayout({
-      style_class: "spotlight-results",
+      style_class: "launcher-results",
       orientation: Clutter.Orientation.VERTICAL,
       x_expand: true,
     });
     this.scrollView = new St.ScrollView({
-      style_class: "spotlight-scroll",
+      style_class: "launcher-scroll",
       hscrollbar_policy: St.PolicyType.NEVER,
       vscrollbar_policy: St.PolicyType.AUTOMATIC,
       overlay_scrollbars: true,
@@ -114,7 +90,7 @@ export class SpotlightOverlay implements SpotlightView {
     });
 
     this.panel = new St.BoxLayout({
-      style_class: `spotlight-panel ${BLUR_TARGET_CLASS}`,
+      style_class: `launcher-panel ${BLUR_TARGET_CLASS}`,
       orientation: Clutter.Orientation.VERTICAL,
       reactive: true,
     });
@@ -137,7 +113,7 @@ export class SpotlightOverlay implements SpotlightView {
     this.connectSignals();
   }
 
-  attach(listener: SpotlightListener): void {
+  attach(listener: LauncherListener): void {
     this.listener = listener;
   }
 
@@ -233,7 +209,6 @@ export class SpotlightOverlay implements SpotlightView {
     return Clutter.EVENT_STOP;
   }
 
-  /** Clique fora do painel fecha, como qualquer popover do GNOME. */
   private onBackdropPress(event: Clutter.Event): boolean {
     const target = global.stage.get_event_actor(event);
     if (target && this.panel.contains(target)) return Clutter.EVENT_PROPAGATE;

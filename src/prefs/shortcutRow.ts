@@ -1,11 +1,3 @@
-/**
- * Linha "Atalho" das preferências: mostra o atalho atual e, ao clicar em "Alterar",
- * abre um diálogo que captura a próxima combinação. As regras do que vale estão em
- * `classifyShortcutPress` (domínio, testado).
- *
- * Durante a captura a janela pede `inhibit_system_shortcuts`: sem isso o Shell consome
- * o próprio Super+Espaço (e qualquer atalho global) antes de a janela vê-lo.
- */
 import Adw from "gi://Adw";
 import Gdk from "gi://Gdk";
 import type Gio from "gi://Gio";
@@ -81,7 +73,6 @@ export class ShortcutRow {
     return Gdk.EVENT_STOP;
   }
 
-  /** O que cada desfecho da captura faz (strategy map). */
   private readonly captureHandlers: Record<ShortcutCapture, CaptureHandler> = {
     [ShortcutCapture.CANCEL]: (dialog) => dialog.close(),
     [ShortcutCapture.CLEAR]: (dialog) => this.save(dialog, []),

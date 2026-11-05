@@ -1,7 +1,3 @@
-/**
- * Portas de efeito colateral da ativação de resultados.
- */
-
 export interface UriLauncher {
   openUri(uri: string): void;
   openPath(path: string): void;
@@ -17,6 +13,5 @@ export interface CommandRunner {
 }
 
 export interface SearchSettings {
-  /** Modelo de URL com `%s` no lugar do termo. */
   searchUrl(): string;
 }

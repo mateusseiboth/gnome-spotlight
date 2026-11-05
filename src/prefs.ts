@@ -1,7 +1,3 @@
-/**
- * Preferências (processo separado, GTK 4 + libadwaita): atalho configurável, limite de
- * resultados, URL da busca na web e a cola dos prefixos.
- */
 import Adw from "gi://Adw";
 import Gio from "gi://Gio";
 import Gtk from "gi://Gtk";
@@ -26,7 +22,7 @@ const PREFIXES: readonly PrefixHelp[] = [
   { prefix: "?", description: () => _("Search the web") },
 ];
 
-export default class GnomeSpotlightPreferences extends ExtensionPreferences {
+export default class LauncherPreferences extends ExtensionPreferences {
   override async fillPreferencesWindow(window: Adw.PreferencesWindow): Promise<void> {
     const settings = this.getSettings();
     const page = new Adw.PreferencesPage();
@@ -39,7 +35,7 @@ export default class GnomeSpotlightPreferences extends ExtensionPreferences {
   private buildSearchGroup(settings: Gio.Settings): Adw.PreferencesGroup {
     const group = new Adw.PreferencesGroup({ title: _("Search") });
 
-    group.add(new ShortcutRow(settings, SettingsKey.TOGGLE_SPOTLIGHT).row);
+    group.add(new ShortcutRow(settings, SettingsKey.TOGGLE_LAUNCHER).row);
 
     const maxResults = new Adw.SpinRow({
       title: _("Maximum results"),
