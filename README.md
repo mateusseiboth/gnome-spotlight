@@ -45,6 +45,12 @@ A extensão não mexe nos atalhos do sistema. Para usar Super+Espaço, tire ante
 - Endereço da busca na web, com `%s` no lugar do texto (padrão Google)
 - Cola dos prefixos
 
+## Traduções
+
+Português do Brasil (`po/pt_BR.po`) e alemão (`po/de.po`, contribuição de Malte H.). Tradução
+nova é um `po/<idioma>.po`; o teste de catálogo reprova mensagem faltando, órfã ou com
+travessão em qualquer idioma.
+
 ## Instalação
 
 ```bash

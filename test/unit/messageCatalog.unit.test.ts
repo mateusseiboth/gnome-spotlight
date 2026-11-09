@@ -1,37 +1,48 @@
-/**
- * Toda mensagem marcada para tradução no código tem tradução pt-BR, e o catálogo não
- * carrega mensagem que o código não usa mais.
- */
 import { describe, expect, test } from "bun:test";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { readdirSync, readFileSync } from "node:fs";
+import { basename, join } from "node:path";
 
 import { extractMessagesFromSources, parsePoFile } from "@scripts/i18n/messageCatalog";
 
 const ROOT = join(import.meta.dir, "..", "..");
+const PO_DIR = join(ROOT, "po");
+const LANGUAGES = readdirSync(PO_DIR)
+  .filter((name) => name.endsWith(".po"))
+  .map((name) => basename(name, ".po"))
+  .sort();
 
-describe("catálogo pt_BR", () => {
-  const sourceMessages = extractMessagesFromSources(join(ROOT, "src"));
-  const catalog = parsePoFile(readFileSync(join(ROOT, "po", "pt_BR.po"), "utf8"));
+const sourceMessages = extractMessagesFromSources(join(ROOT, "src"));
+const readCatalog = (language: string) =>
+  parsePoFile(readFileSync(join(PO_DIR, `${language}.po`), "utf8"));
 
+describe("catálogos de tradução", () => {
   test("o código tem mensagens marcadas", () => {
     expect(sourceMessages.size).toBeGreaterThan(0);
   });
 
-  test("toda mensagem do código está traduzida", () => {
+  test("o alemão vale para todo locale alemão", () => {
+    expect(LANGUAGES).toEqual(["de", "pt_BR"]);
+  });
+
+  test.each(LANGUAGES)("%s traduz toda mensagem do código", (language) => {
+    const catalog = readCatalog(language);
     const missing = [...sourceMessages].filter((message) => !catalog.get(message));
 
     expect(missing).toEqual([]);
   });
 
-  test("o catálogo não tem mensagem órfã", () => {
-    const orphans = [...catalog.keys()].filter((message) => !sourceMessages.has(message));
+  test.each(LANGUAGES)("%s não tem mensagem órfã", (language) => {
+    const orphans = [...readCatalog(language).keys()].filter(
+      (message) => !sourceMessages.has(message),
+    );
 
     expect(orphans).toEqual([]);
   });
 
-  test("tradução não leva travessão", () => {
-    const withDash = [...catalog.values()].filter((translation) => translation.includes("—"));
+  test.each(LANGUAGES)("%s não leva travessão", (language) => {
+    const withDash = [...readCatalog(language).values()].filter((translation) =>
+      translation.includes("—"),
+    );
 
     expect(withDash).toEqual([]);
   });

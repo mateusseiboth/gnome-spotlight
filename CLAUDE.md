@@ -27,8 +27,9 @@ prefixo do log. Classes, arquivos e classes CSS usam o nome genérico `Launcher`
 - Fonte nova de busca = classe nova em `src/provider/` + uma linha em
   `searchProviderFactory.ts`. Nada de `if` por tipo no serviço.
 - Texto de tela vai em inglês no código, marcado com `t("...")` (domínio) ou `_("...")`
-  (UI e prefs), sempre com aspas duplas e texto literal. O teste `messageCatalog` reprova
-  mensagem sem tradução em `po/pt_BR.po`, tradução órfã e travessão.
+  (UI e prefs), sempre com aspas duplas e texto literal. O teste `messageCatalog` reprova,
+  em todo `po/*.po`, mensagem sem tradução, tradução órfã e travessão. Catálogo leva só o
+  idioma no nome (`de.po`, não `de_DE.po`) quando a tradução serve para todas as regiões.
 - CSS só no molde de `src/style/stylesheet.ts`; claro e escuro saem do mesmo molde.
 - Portão de saída: `bun run format:check && bun run lint && bun run typecheck && bun test`.
 - Envio: `bun run pack` gera o zip sem `gschemas.compiled` (o Shell compila ao instalar).
