@@ -1,7 +1,7 @@
 {
   "uuid": "launchpad-search@mateusseiboth.github.io",
   "name": "Launchpad Search",
-  "description": "Search bar on Super+Alt+Space: apps, open windows, calculations, commands, files, system actions and web search.\n\nPressing Enter on a calculation copies the result to the clipboard. The shortcut can be changed in the preferences.",
+  "description": "Search bar on Super+Alt+Space: apps, open windows, calculations, commands, files, system actions and web search.\n\nPressing Enter on a calculation copies the result to the clipboard. The shortcut can be changed in the preferences.\n\nGerman translation by Malte H. (https://github.com/raqu1n). Thanks!",
   "shell-version": ["50", "51"],
   "url": "https://github.com/mateusseiboth/gnome-spotlight",
   "settings-schema": "org.gnome.shell.extensions.launchpad-search",
