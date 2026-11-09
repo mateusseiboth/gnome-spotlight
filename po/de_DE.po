@@ -1,0 +1,102 @@
+# Translatable messages from gnome-spotlight.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Malte H.\n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.10\n"
+
+msgid "App"
+msgstr "App"
+
+msgid "Browse files and folders"
+msgstr "Dateien und Ordner durchsuchen"
+
+msgid "Calculate"
+msgstr "Berechnen"
+
+msgid "Calculator"
+msgstr "Taschenrechner"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Change"
+msgstr "Ändern"
+
+msgid "Command"
+msgstr "Befehl"
+
+msgid "Could not open the result"
+msgstr "Das Ergebnis konnte nicht geöffnet werden"
+
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+msgid "Esc cancels. Backspace disables the shortcut."
+msgstr ""
+"Esc bricht ab.\n"
+"Backspace löscht die Tastenkombination."
+
+msgid "File"
+msgstr "Datei"
+
+msgid "Folder"
+msgstr "Ordner"
+
+msgid "Maximum results"
+msgstr "Maximale Anzahl an Ergebnissen"
+
+msgid "Prefixes"
+msgstr "Präfixe"
+
+msgid "Press Enter to copy the result"
+msgstr "Drücke die Eingabetaste, um das Ergebnis zu kopieren"
+
+msgid "Press the new shortcut"
+msgstr "Drücke die neue Tastenkombination"
+
+msgid "Run in background"
+msgstr "Im Hintergrund ausführen"
+
+msgid "Run in terminal"
+msgstr "Im Terminal ausführen"
+
+msgid "Search"
+msgstr "Suchen"
+
+msgid "Search apps, windows, files or type a calculation"
+msgstr "Apps und Dateien oder Berechnungen suchen"
+
+msgid "Search the web"
+msgstr "Das Web durchsuchen"
+
+msgid "Search the web for “%s”"
+msgstr "„%s“ im Internet suchen"
+
+msgid "Shortcut"
+msgstr "Tastenkombination"
+
+msgid "Switch to %s"
+msgstr "Zu „%s“ wechseln"
+
+msgid "System"
+msgstr "System"
+
+msgid "Use Super, Ctrl or Alt together with another key."
+msgstr "Benutze Super, Strg oder Alt zusammen mit einer anderen Taste."
+
+msgid "Web"
+msgstr "Web"
+
+msgid "Web search address (%s is the searched text)"
+msgstr "Adresse für die Websuche (%s wird durch den Suchbegriff ersetzt)"
+
+msgid "Window"
+msgstr "Fenster"
