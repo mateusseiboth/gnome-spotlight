@@ -1,0 +1,123 @@
+# French translation of the launchpad-search extension.
+msgid ""
+msgstr ""
+"Project-Id-Version: launchpad-search\n"
+"PO-Revision-Date: 2026-11-19 00:00+0100\n"
+"Last-Translator: mj42584\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "App"
+msgstr "Application"
+
+msgid "Browse files and folders"
+msgstr "Parcourir les fichiers et dossiers"
+
+msgid "Calculate"
+msgstr "Calculer"
+
+msgid "Calculator"
+msgstr "Calculatrice"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Change"
+msgstr "Modifier"
+
+msgid "Command"
+msgstr "Commande"
+
+msgid "Could not open the result"
+msgstr "Impossible d’ouvrir le résultat"
+
+msgid "Disabled"
+msgstr "Désactivé"
+
+msgid "Esc cancels. Backspace disables the shortcut."
+msgstr "Échap annule. Retour arrière désactive le raccourci."
+
+msgid "File"
+msgstr "Fichier"
+
+msgid "Folder"
+msgstr "Dossier"
+
+msgid "Maximum results"
+msgstr "Nombre maximal de résultats"
+
+msgid "Prefixes"
+msgstr "Préfixes"
+
+msgid "Press Enter to copy the result"
+msgstr "Entrée copie le résultat"
+
+msgid "Press the new shortcut"
+msgstr "Appuyez sur le nouveau raccourci"
+
+msgid "Run in background"
+msgstr "Exécuter en arrière-plan"
+
+msgid "Run in terminal"
+msgstr "Exécuter dans un terminal"
+
+msgid "Search"
+msgstr "Recherche"
+
+msgid "Search apps, windows, files or type a calculation"
+msgstr "Rechercher des applications, fenêtres, fichiers ou saisir un calcul"
+
+msgid "Search the web"
+msgstr "Rechercher sur le web"
+
+msgid "Search the web for “%s”"
+msgstr "Rechercher « %s » sur le web"
+
+msgid "Shortcut"
+msgstr "Raccourci"
+
+msgid "Switch to %s"
+msgstr "Basculer vers %s"
+
+msgid "System"
+msgstr "Système"
+
+msgid "Use Super, Ctrl or Alt together with another key."
+msgstr "Utilisez Super, Ctrl ou Alt avec une autre touche."
+
+msgid "Web"
+msgstr "Web"
+
+msgid "Web search address (%s is the searched text)"
+msgstr "Adresse de recherche web (%s est le texte recherché)"
+
+msgid "Window"
+msgstr "Fenêtre"
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "Address (%s is the searched text)"
+msgstr "Adresse (%s est le texte recherché)"
+
+msgid "Keyword"
+msgstr "Mot-clé"
+
+msgid "Keyword searches"
+msgstr "Recherches par mot-clé"
+
+msgid "New keyword search"
+msgstr "Nouvelle recherche par mot-clé"
+
+msgid "Remove"
+msgstr "Supprimer"
+
+msgid "Search %s for “%s”"
+msgstr "Rechercher sur %s : « %s »"
+
+msgid "Type the keyword before the text, for example: @y cats"
+msgstr "Tapez le mot-clé avant le texte, par exemple : @y chats"

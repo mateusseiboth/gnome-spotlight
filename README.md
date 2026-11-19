@@ -66,8 +66,8 @@ A extensão não mexe nos atalhos do sistema. Para usar Super+Espaço, tire ante
 
 ## Traduções
 
-Português do Brasil (`po/pt_BR.po`) e alemão (`po/de.po`, contribuição de
-[Malte H.](https://github.com/raqu1n), obrigado!). Tradução nova é um `po/<idioma>.po`; o
+Português do Brasil (`po/pt_BR.po`), alemão (`po/de.po`, contribuição de
+[Malte H.](https://github.com/raqu1n), obrigado!) e francês (`po/fr.po`). Tradução nova é um `po/<idioma>.po`; o
 teste de catálogo reprova mensagem faltando, órfã ou com travessão em qualquer idioma.
 
 ## Instalação

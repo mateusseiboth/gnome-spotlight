@@ -21,7 +21,7 @@ describe("catálogos de tradução", () => {
   });
 
   test("o alemão vale para todo locale alemão", () => {
-    expect(LANGUAGES).toEqual(["de", "pt_BR"]);
+    expect(LANGUAGES).toEqual(["de", "fr", "pt_BR"]);
   });
 
   test.each(LANGUAGES)("%s traduz toda mensagem do código", (language) => {
