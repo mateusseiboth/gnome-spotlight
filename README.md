@@ -5,7 +5,7 @@ conversões de unidade, roda comandos, navega por pastas, dispara ações do sis
 web e mostra os resultados dos provedores de busca do panorama (Configurações, Arquivos,
 Software, extensões que registram provedor).
 
-Feita para o GNOME Shell 50 e 51.
+Feita para o GNOME Shell 48, 50 e 51.
 
 ## O que dá para digitar
 
