@@ -55,6 +55,13 @@ export default class LauncherPreferences extends ExtensionPreferences {
     settings.bind(SettingsKey.WEB_SEARCH_URL, searchUrl, "text", Gio.SettingsBindFlags.DEFAULT);
     group.add(searchUrl);
 
+    const bookmarks = new Adw.SwitchRow({
+      title: _("Search browser bookmarks"),
+      subtitle: _("Default browser only: Chrome, Chromium, Brave, Edge or Vivaldi"),
+    });
+    settings.bind(SettingsKey.SEARCH_BOOKMARKS, bookmarks, "active", Gio.SettingsBindFlags.DEFAULT);
+    group.add(bookmarks);
+
     return group;
   }
 

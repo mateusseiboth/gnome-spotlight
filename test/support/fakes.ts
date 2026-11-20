@@ -3,6 +3,7 @@
  * Nenhuma depende do GNOME.
  */
 import type { AppCatalog, AppEntry } from "@domain/apps/appPorts";
+import type { Bookmark, BookmarkCatalog } from "@domain/bookmarks/bookmarkPorts";
 import type { UnitConverter } from "@domain/calculator/calculatorPorts";
 import type { DirectoryReader, FileEntry } from "@domain/files/filePorts";
 import type { Clipboard, CommandRunner, UriLauncher } from "@domain/launcher/launcherPorts";
@@ -162,4 +163,9 @@ export const makeOverviewCatalog = (
     list: () => Object.entries(providers).map(toProvider),
   };
   return { catalog, activated, searched };
+};
+
+export const makeBookmarkCatalog = (bookmarks: Bookmark[]) => {
+  const catalog: BookmarkCatalog = { list: async () => bookmarks };
+  return { catalog };
 };

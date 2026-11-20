@@ -8,6 +8,7 @@ import { identity, makeLauncher } from "@test/support/fakes";
 const settings = {
   searchUrl: () => "https://www.google.com/search?q=%s",
   keywordSearches: () => ({ "@y": "https://www.youtube.com/results?search_query=%s" }),
+  searchBookmarks: () => true,
 };
 
 describe("KeywordSearchProvider", () => {

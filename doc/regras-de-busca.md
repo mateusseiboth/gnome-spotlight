@@ -4,7 +4,7 @@
 
 | Prefixo | Modo | O prefixo fica no termo? |
 | --- | --- | --- |
-| nenhum | padrão: apps, janelas, conta automática, ações do sistema, web por último | |
+| nenhum | padrão: apps, janelas, favoritos, conta automática, ações do sistema, web por último | |
 | `=` | calculadora | não |
 | `>` | comando no terminal | não |
 | `$` | comando em segundo plano | não |
@@ -34,6 +34,7 @@ Developer Edition".
 | Atalho de busca (`@y texto`) | 1 |
 | Conversão de unidade | 0,97, como a conta |
 | Provedores do panorama | 0,6 caindo 0,05 por posição (até 3 por provedor): abaixo de app que casou bem |
+| Favoritos | Título 1, domínio do endereço 0,8, vezes 0,9: abaixo do app de mesmo nome. Casamento abaixo de 0,45 (letras soltas em ordem) é descartado, e só os 5 melhores entram |
 | Arquivos | Pasta ganha +0,5. O casamento é arredondado em faixas de 0,1, para nomes parecidos empatarem e caírem em ordem alfabética, como num seletor de arquivos |
 
 ## Calculadora
@@ -63,6 +64,25 @@ Developer Edition".
 - O texto entra no `%s` do endereço com `encodeURIComponent`.
 - No formulário das preferências, atalho não pode ter espaço e o endereço precisa começar
   com `http://` ou `https://` e ter `%s`.
+
+## Favoritos do navegador
+
+- Só o navegador padrão (`Gio.AppInfo.get_default_for_uri_scheme("https")`) e, por enquanto,
+  só a família Chromium: Chrome (estável, beta, dev), Chromium, Brave, Edge e Vivaldi. A
+  tabela de ids `.desktop` e pastas fica em `src/domain/bookmarks/chromiumBookmarks.ts`.
+- Pastas procuradas, nesta ordem: a nativa em `$XDG_CONFIG_HOME`, a do flatpak
+  (`~/.var/app/<id>/config/...`) e a do snap. Vale a primeira que tem `Local State`.
+- Perfil: `profile.last_used` do `Local State`; sem ele, `Default`. Nome com barra ou `..` é
+  ignorado.
+- Lê `Bookmarks` (favoritos locais ou da sincronização antiga) E `AccountBookmarks` (conta
+  Google conectada sem sincronização, Chrome recente). Junta os dois sem repetir endereço.
+- Só endereços `http(s)`: bookmarklet `javascript:` não vira resultado.
+- Leitura assíncrona e só de leitura. Cada arquivo fica em memória até a data de modificação
+  mudar. Arquivo ausente ou quebrado dá lista vazia, sem erro.
+- O Chrome também grava `EncryptedAccountBookmarks2`. Se um dia o `AccountBookmarks` em
+  texto sumir, os favoritos da conta param de aparecer: conferir a cada versão do Chrome.
+- Firefox (`places.sqlite`) fica para depois: precisa de SQLite, que o GJS não garante.
+- Desliga em Preferências > Buscar nos favoritos do navegador (`search-bookmarks`).
 
 ## Comandos
 
