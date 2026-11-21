@@ -23,7 +23,8 @@ Feita para o GNOME Shell 50 e 51.
 | `wi-fi`, `bateria` | Também os resultados dos provedores do panorama (painéis de Configurações, por exemplo) |
 | `bloquear`, `suspender` | Ações do sistema (bloquear, suspender, reiniciar, desligar, sair) |
 
-Teclas: setas navegam, Enter abre, Tab completa caminho, Esc limpa o texto e o segundo Esc fecha.
+Teclas: setas navegam, Enter abre, Ctrl+Enter abre uma janela nova do app, Tab completa caminho,
+Esc limpa o texto e o segundo Esc fecha.
 Clicar fora da janela ou pressionar o atalho novamente também fecha, mesmo com texto na busca.
 
 A janela abre centralizada no monitor onde está o ponteiro, com o topo a 25% da altura. Com o Blur my

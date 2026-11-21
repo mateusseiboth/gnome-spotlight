@@ -40,6 +40,7 @@ export class AppSearchProvider extends ModeSearchProvider {
         icon: app.icon,
         score: match * MATCH_SHARE + app.usage * USAGE_SHARE,
         activate: () => this.catalog.launch(app.id),
+        activateInNewWindow: () => this.catalog.launchNewWindow(app.id),
       },
     ];
   }

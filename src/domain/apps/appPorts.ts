@@ -14,4 +14,5 @@ export interface AppEntry {
 export interface AppCatalog {
   list(): readonly AppEntry[];
   launch(id: string): void;
+  launchNewWindow(id: string): void;
 }

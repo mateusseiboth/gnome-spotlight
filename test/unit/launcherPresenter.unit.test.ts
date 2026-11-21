@@ -94,6 +94,53 @@ describe("LauncherPresenter", () => {
     expect(calls.slice(-2)).toEqual(["close", "activate"]);
   });
 
+  test("Ctrl+Enter fecha a janela e ativa em janela nova", async () => {
+    const { view, calls } = makeView();
+    const item = result("a", {
+      activate: () => {
+        calls.push("activate");
+      },
+      activateInNewWindow: () => {
+        calls.push("activate-new-window");
+      },
+    });
+    const presenter = new LauncherPresenter(async () => [item], view);
+    await presenter.onQueryChanged("x");
+
+    await presenter.onActivateSelected(true);
+
+    expect(calls.slice(-2)).toEqual(["close", "activate-new-window"]);
+  });
+
+  test("Ctrl+Enter sem ativação em janela nova usa a ativação normal", async () => {
+    const { view } = makeView();
+    const item = result("a");
+    const presenter = new LauncherPresenter(async () => [item], view);
+    await presenter.onQueryChanged("x");
+
+    await presenter.onActivateSelected(true);
+
+    expect(item.activated).toBe(1);
+  });
+
+  test("Enter sem Ctrl usa a ativação normal mesmo com janela nova disponível", async () => {
+    const { view, calls } = makeView();
+    const item = result("a", {
+      activate: () => {
+        calls.push("activate");
+      },
+      activateInNewWindow: () => {
+        calls.push("activate-new-window");
+      },
+    });
+    const presenter = new LauncherPresenter(async () => [item], view);
+    await presenter.onQueryChanged("x");
+
+    await presenter.onActivateSelected();
+
+    expect(calls.slice(-2)).toEqual(["close", "activate"]);
+  });
+
   test("clique ativa a linha clicada", async () => {
     const { view } = makeView();
     const items = [result("a"), result("b")];
