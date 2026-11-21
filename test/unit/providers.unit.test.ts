@@ -248,7 +248,11 @@ describe("SystemActionSearchProvider", () => {
 });
 
 describe("WebSearchProvider", () => {
-  const settings = { searchUrl: () => "https://duckduckgo.com/?q=%s", keywordSearches: () => ({}) };
+  const settings = {
+    searchUrl: () => "https://duckduckgo.com/?q=%s",
+    keywordSearches: () => ({}),
+    searchBookmarks: () => true,
+  };
 
   test("`?` pesquisa com o termo codificado na URL", async () => {
     const { launcher, uris } = makeLauncher();

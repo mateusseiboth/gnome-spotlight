@@ -124,3 +124,12 @@ msgstr "Auf %s suchen: „%s“"
 
 msgid "Type the keyword before the text, for example: @y cats"
 msgstr "Kürzel vor den Text schreiben, zum Beispiel: @y Katzen"
+
+msgid "Bookmark"
+msgstr "Lesezeichen"
+
+msgid "Search browser bookmarks"
+msgstr "Lesezeichen des Browsers durchsuchen"
+
+msgid "Default browser only: Chrome, Chromium, Brave, Edge or Vivaldi"
+msgstr "Nur der Standardbrowser: Chrome, Chromium, Brave, Edge oder Vivaldi"

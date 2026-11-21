@@ -10,6 +10,7 @@ const KIND_LABELS: Record<ResultKind, (t: Translate) => string> = {
   [ResultKind.FOLDER]: (t) => t("Folder"),
   [ResultKind.SYSTEM]: (t) => t("System"),
   [ResultKind.WEB]: (t) => t("Web"),
+  [ResultKind.BOOKMARK]: (t) => t("Bookmark"),
   [ResultKind.PROVIDER]: (t) => t("Search"),
 };
 

@@ -121,3 +121,12 @@ msgstr "Pesquisar em %s: “%s”"
 
 msgid "Type the keyword before the text, for example: @y cats"
 msgstr "Digite o atalho antes do texto, por exemplo: @y gatos"
+
+msgid "Bookmark"
+msgstr "Favorito"
+
+msgid "Search browser bookmarks"
+msgstr "Buscar nos favoritos do navegador"
+
+msgid "Default browser only: Chrome, Chromium, Brave, Edge or Vivaldi"
+msgstr "Só o navegador padrão: Chrome, Chromium, Brave, Edge ou Vivaldi"
