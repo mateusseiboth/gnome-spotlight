@@ -37,6 +37,10 @@ export class ShellAppCatalog implements AppCatalog {
     this.appSystem.lookup_app(id)?.activate();
   }
 
+  launchNewWindow(id: string): void {
+    this.appSystem.lookup_app(id)?.open_new_window(-1);
+  }
+
   destroy(): void {
     this.appSystem.disconnect(this.installedChangedId);
   }

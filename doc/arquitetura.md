@@ -16,7 +16,9 @@
    atrasada é descartada. Se o usuário já moveu a seleção, a lista nova mantém o item
    selecionado.
 7. Enter ou clique: o presenter FECHA a janela e só depois chama `result.activate()`. Fechar
-   antes devolve o foco às janelas, senão o app recém-aberto nasce atrás.
+   antes devolve o foco às janelas, senão o app recém-aberto nasce atrás. Ctrl+Enter usa
+   `result.activateInNewWindow()` quando existe (apps abrem janela nova); sem ele, cai na
+   ativação normal.
 
 ## Camadas
 

@@ -45,16 +45,20 @@ export class LauncherPresenter {
     this.view.renderSelection(this.cursor.index);
   }
 
-  async onActivateSelected(): Promise<void> {
-    await this.onActivateAt(this.cursor.index);
+  async onActivateSelected(newWindow = false): Promise<void> {
+    await this.onActivateAt(this.cursor.index, newWindow);
   }
 
-  async onActivateAt(index: number): Promise<void> {
+  async onActivateAt(index: number, newWindow = false): Promise<void> {
     const selected = this.results[index];
     if (!selected) return;
 
     this.view.close();
     try {
+      if (newWindow && selected.activateInNewWindow) {
+        await selected.activateInNewWindow();
+        return;
+      }
       await selected.activate();
     } catch (error) {
       this.onError(error);
