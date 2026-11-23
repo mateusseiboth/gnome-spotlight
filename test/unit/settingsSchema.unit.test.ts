@@ -41,4 +41,8 @@ describe("schema GSettings", () => {
     expect(block).toContain("'@y': 'https://www.youtube.com/results?search_query=%s'");
     expect(block).toContain("'@w': 'https://en.wikipedia.org/w/index.php?search=%s'");
   });
+
+  test("busca nos favoritos do navegador vem desligada", () => {
+    expect(keyBlockOf(SettingsKey.SEARCH_BOOKMARKS)).toContain("<default>false</default>");
+  });
 });

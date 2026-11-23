@@ -28,4 +28,12 @@ describe("buildStylesheet", () => {
 
     expect(classes.every((name) => name?.startsWith("launcher-"))).toBe(true);
   });
+
+  test("ícone do resultado tem 32px e não fica dentro de caixa", () => {
+    const css = buildStylesheet(ThemeVariant.DARK);
+    const rule = css.match(/\.launcher-result-icon \{[^}]*\}/)?.[0] ?? "";
+
+    expect(rule).toContain("icon-size: 32px;");
+    expect(rule).not.toMatch(/background|padding/);
+  });
 });

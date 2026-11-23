@@ -121,3 +121,12 @@ msgstr "Rechercher sur %s : « %s »"
 
 msgid "Type the keyword before the text, for example: @y cats"
 msgstr "Tapez le mot-clé avant le texte, par exemple : @y chats"
+
+msgid "Bookmark"
+msgstr "Favori"
+
+msgid "Search browser bookmarks"
+msgstr "Rechercher dans les favoris du navigateur"
+
+msgid "Default browser only: Chrome, Chromium, Brave, Edge or Vivaldi"
+msgstr "Navigateur par défaut uniquement : Chrome, Chromium, Brave, Edge ou Vivaldi"

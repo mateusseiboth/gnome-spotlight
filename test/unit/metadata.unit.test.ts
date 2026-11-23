@@ -39,6 +39,11 @@ describe("metadata.json", () => {
     expect(metadata.description).toContain("DuckDuckGo");
   });
 
+  test("declara a leitura dos favoritos do navegador, desligada por padrão", () => {
+    expect(metadata.description).toMatch(/bookmarks/i);
+    expect(metadata.description).toContain("off by default");
+  });
+
   test("não cita produto de terceiros", () => {
     expect(`${metadata.name} ${metadata.description}`).not.toMatch(/spotlight|macos|cosmic/i);
   });

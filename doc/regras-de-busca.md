@@ -82,7 +82,8 @@ Developer Edition".
 - O Chrome também grava `EncryptedAccountBookmarks2`. Se um dia o `AccountBookmarks` em
   texto sumir, os favoritos da conta param de aparecer: conferir a cada versão do Chrome.
 - Firefox (`places.sqlite`) fica para depois: precisa de SQLite, que o GJS não garante.
-- Desliga em Preferências > Buscar nos favoritos do navegador (`search-bookmarks`).
+- Vem desligado (opt-in): a extensão só lê os favoritos depois que o usuário liga em
+  Preferências > Buscar nos favoritos do navegador (`search-bookmarks`).
 
 ## Comandos
 

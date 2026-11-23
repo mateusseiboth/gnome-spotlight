@@ -12,7 +12,6 @@ interface ThemeTokens {
   readonly dimText: string;
   readonly hoverBackground: string;
   readonly separator: string;
-  readonly iconTile: string;
 }
 
 const THEME_TOKENS: Record<ThemeVariant, ThemeTokens> = {
@@ -24,7 +23,6 @@ const THEME_TOKENS: Record<ThemeVariant, ThemeTokens> = {
     dimText: "rgba(255, 255, 255, 0.6)",
     hoverBackground: "rgba(255, 255, 255, 0.08)",
     separator: "rgba(255, 255, 255, 0.1)",
-    iconTile: "rgba(255, 255, 255, 0.1)",
   },
   [ThemeVariant.LIGHT]: {
     panelGlass: "rgba(250, 250, 252, 0.6)",
@@ -34,7 +32,6 @@ const THEME_TOKENS: Record<ThemeVariant, ThemeTokens> = {
     dimText: "rgba(0, 0, 0, 0.55)",
     hoverBackground: "rgba(0, 0, 0, 0.06)",
     separator: "rgba(0, 0, 0, 0.08)",
-    iconTile: "rgba(0, 0, 0, 0.06)",
   },
 };
 
@@ -108,10 +105,7 @@ const TEMPLATE = `
 }
 
 .launcher-result-icon {
-  icon-size: 24px;
-  padding: 4px;
-  border-radius: 8px;
-  background-color: {{iconTile}};
+  icon-size: 32px;
 }
 
 .launcher-result-title {

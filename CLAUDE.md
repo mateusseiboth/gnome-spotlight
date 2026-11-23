@@ -1,6 +1,6 @@
 # launchpad-search (repositório gnome-spotlight)
 
-Extensão do GNOME Shell 50 e 51 em TypeScript 7, publicada no extensions.gnome.org como
+Extensão do GNOME Shell 48, 50 e 51 em TypeScript 7, publicada no extensions.gnome.org como
 "Launchpad Search". Leia `doc/` antes de mexer: lá estão a arquitetura, as regras de busca e
 as armadilhas do Shell.
 

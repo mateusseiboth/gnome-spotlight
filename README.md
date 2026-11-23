@@ -21,6 +21,7 @@ Feita para o GNOME Shell 48, 50 e 51.
 | `? gnome shell` | Os 10 primeiros resultados do DuckDuckGo, mais a linha que abre a busca completa |
 | `@y gatos`, `@w gnome` | Atalho de busca: abre a pesquisa do site configurado (YouTube, Wikipédia...) |
 | `wi-fi`, `bateria` | Também os resultados dos provedores do panorama (painéis de Configurações, por exemplo) |
+| `youtube`, `github` | Favoritos do navegador padrão (Chrome, Chromium, Brave, Edge, Vivaldi), se ligado nas preferências |
 | `bloquear`, `suspender` | Ações do sistema (bloquear, suspender, reiniciar, desligar, sair) |
 
 Teclas: setas navegam, Enter abre, Ctrl+Enter abre uma janela nova do app, Tab completa caminho,
@@ -52,6 +53,8 @@ A extensão não mexe nos atalhos do sistema. Para usar Super+Espaço, tire ante
 - Cola dos prefixos
 - Atalhos de busca: palavra (`@y`) + endereço com `%s`. Vêm `@y` (YouTube) e `@w`
   (Wikipédia); a lista aceita incluir e remover
+- Buscar nos favoritos do navegador (desligado por padrão): lê os arquivos de favoritos do
+  navegador padrão, só no computador, nada vai para a internet
 
 ## Internet e outros provedores
 
