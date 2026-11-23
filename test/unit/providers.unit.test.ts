@@ -49,6 +49,17 @@ describe("AppSearchProvider", () => {
     expect(launched).toEqual(["org.gnome.Ptyxis.desktop"]);
   });
 
+  test("abre uma janela nova do app escolhido", async () => {
+    const { catalog, launched, launchedInNewWindow } = makeAppCatalog(apps);
+    const provider = new AppSearchProvider(catalog);
+
+    const [first] = await provider.search(parseQuery("ter"));
+    await first?.activateInNewWindow?.();
+
+    expect(launchedInNewWindow).toEqual(["org.gnome.Ptyxis.desktop"]);
+    expect(launched).toEqual([]);
+  });
+
   test("encontra por palavra-chave, nome genérico e executável", async () => {
     const provider = new AppSearchProvider(makeAppCatalog(apps).catalog);
 

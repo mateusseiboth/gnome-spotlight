@@ -29,13 +29,17 @@ export const makeApp = (
 
 export const makeAppCatalog = (apps: AppEntry[]) => {
   const launched: string[] = [];
+  const launchedInNewWindow: string[] = [];
   const catalog: AppCatalog = {
     list: () => apps,
     launch: (id) => {
       launched.push(id);
     },
+    launchNewWindow: (id) => {
+      launchedInNewWindow.push(id);
+    },
   };
-  return { catalog, launched };
+  return { catalog, launched, launchedInNewWindow };
 };
 
 export const makeWindowCatalog = (windows: WindowEntry[]) => {

@@ -5,7 +5,7 @@ Conferido contra o código do gnome-shell 50.5 instalado (extraído de
 
 | Necessidade | API usada | Onde |
 | --- | --- | --- |
-| Apps instalados | `Shell.AppSystem.get_installed()`, `lookup_app(id).activate()`, sinal `installed-changed` | `shellAppCatalog.ts` |
+| Apps instalados | `Shell.AppSystem.get_installed()`, `lookup_app(id).activate()`, `lookup_app(id).open_new_window(-1)`, sinal `installed-changed` | `shellAppCatalog.ts` |
 | Frequência de uso | `Shell.AppUsage.get_most_used()` | `shellAppCatalog.ts` |
 | Janelas | `global.display.get_tab_list(Meta.TabList.NORMAL_ALL, null)`, `Shell.WindowTracker`, `Main.activateWindow` | `shellWindowCatalog.ts` |
 | Ações do sistema | `misc/systemActions.js` `getMatchingActions`, `getName`, `getIconName`, `activateAction` | `shellSystemActionCatalog.ts` |
@@ -38,6 +38,10 @@ Conferido contra o código do gnome-shell 50.5 instalado (extraído de
 
 - Com a busca aberta, o Shell entra no modo `SYSTEM_MODAL`. O atalho funciona nesse modo para
   fechar a busca, mas não a abre quando outro diálogo modal está ativo.
+- O Enter puro pode ser consumido pelo ibus antes de chegar ao `key-press-event`. Por isso a
+  view escuta também o sinal `activate` do `ClutterText` (só ele recebe o Enter puro nesse
+  caso). Enter com modificador chega ao `key-press-event`, que devolve `EVENT_STOP` e evita a
+  ativação dupla; é por aí que Ctrl+Enter abre janela nova.
 - O `gettext` exportado por `extension.js` descobre a extensão pela pilha de chamadas. Com o
   bundle funciona, mas a extensão passa `this.gettext` da instância, que não depende disso.
 - A janela abre no monitor onde está o ponteiro (`Main.layoutManager.currentMonitor`), com

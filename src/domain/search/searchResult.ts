@@ -25,4 +25,5 @@ export interface SearchResult {
   readonly score: number;
   readonly completion?: string;
   activate(): void | Promise<void>;
+  activateInNewWindow?(): void | Promise<void>;
 }

@@ -34,7 +34,7 @@ const PANEL_SURFACE_CLASSES: Record<PanelSurface, string> = {
   [PanelSurface.SOLID]: "launcher-panel-solid",
 };
 
-type KeyAction = (listener: LauncherListener, text: string) => void;
+type KeyAction = (listener: LauncherListener, text: string, newWindow: boolean) => void;
 
 const KEY_ACTIONS = new Map<number, KeyAction>([
   [Clutter.KEY_Escape, (listener, text) => listener.onEscape(text)],
@@ -42,9 +42,15 @@ const KEY_ACTIONS = new Map<number, KeyAction>([
   [Clutter.KEY_KP_Up, (listener) => listener.onMoveSelection(-1)],
   [Clutter.KEY_Down, (listener) => listener.onMoveSelection(1)],
   [Clutter.KEY_KP_Down, (listener) => listener.onMoveSelection(1)],
-  [Clutter.KEY_Return, (listener) => void listener.onActivateSelected()],
-  [Clutter.KEY_KP_Enter, (listener) => void listener.onActivateSelected()],
-  [Clutter.KEY_ISO_Enter, (listener) => void listener.onActivateSelected()],
+  [Clutter.KEY_Return, (listener, _text, newWindow) => void listener.onActivateSelected(newWindow)],
+  [
+    Clutter.KEY_KP_Enter,
+    (listener, _text, newWindow) => void listener.onActivateSelected(newWindow),
+  ],
+  [
+    Clutter.KEY_ISO_Enter,
+    (listener, _text, newWindow) => void listener.onActivateSelected(newWindow),
+  ],
   [Clutter.KEY_Tab, (listener) => listener.onComplete()],
 ]);
 
@@ -195,19 +201,21 @@ export class LauncherOverlay implements LauncherView {
       "text-changed",
       () => void this.listener?.onQueryChanged(this.entry.get_text()),
     );
+    this.entry.clutter_text.connect("activate", () => void this.listener?.onActivateSelected());
     this.entry.clutter_text.connect("key-press-event", (_actor, event: Clutter.Event) =>
-      this.onKeyPress(event.get_key_symbol()),
+      this.onKeyPress(event),
     );
     this.backdrop.connect("button-press-event", (_actor, event: Clutter.Event) =>
       this.onBackdropPress(event),
     );
   }
 
-  private onKeyPress(symbol: number): boolean {
-    const action = KEY_ACTIONS.get(symbol);
+  private onKeyPress(event: Clutter.Event): boolean {
+    const action = KEY_ACTIONS.get(event.get_key_symbol());
     if (!action || !this.listener) return Clutter.EVENT_PROPAGATE;
 
-    action(this.listener, this.entry.get_text());
+    const newWindow = (event.get_state() & Clutter.ModifierType.CONTROL_MASK) !== 0;
+    action(this.listener, this.entry.get_text(), newWindow);
     return Clutter.EVENT_STOP;
   }
 
