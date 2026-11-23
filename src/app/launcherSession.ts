@@ -6,6 +6,7 @@ import * as Main from "resource:///org/gnome/shell/ui/main.js";
 
 import { toggleShortcut } from "@app/shortcutToggle";
 import type { Translate } from "@i18n/translate";
+import { ChromiumBookmarkCatalog } from "@infra/gnome/chromiumBookmarkCatalog";
 import { DuckDuckGoClient } from "@infra/gnome/duckDuckGoClient";
 import { GioDirectoryReader } from "@infra/gnome/gioDirectoryReader";
 import { GnomeCalculatorConverter } from "@infra/gnome/gnomeCalculatorConverter";
@@ -40,6 +41,7 @@ export class LauncherSession {
 
     const providers = createSearchProviders({
       apps: this.apps,
+      bookmarks: new ChromiumBookmarkCatalog(),
       windows: new ShellWindowCatalog(),
       systemActions: new ShellSystemActionCatalog(),
       directories: new GioDirectoryReader(),
@@ -53,6 +55,7 @@ export class LauncherSession {
         searchUrl: () => settings.get_string(SettingsKey.WEB_SEARCH_URL),
         keywordSearches: () =>
           settings.get_value(SettingsKey.KEYWORD_SEARCHES).deepUnpack<Record<string, string>>(),
+        searchBookmarks: () => settings.get_boolean(SettingsKey.SEARCH_BOOKMARKS),
       },
       homeDirectory: GLib.get_home_dir(),
       translate: t,

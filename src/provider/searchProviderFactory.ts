@@ -1,4 +1,5 @@
 import type { AppCatalog } from "@domain/apps/appPorts";
+import type { BookmarkCatalog } from "@domain/bookmarks/bookmarkPorts";
 import type { UnitConverter } from "@domain/calculator/calculatorPorts";
 import type { DirectoryReader } from "@domain/files/filePorts";
 import type {
@@ -14,6 +15,7 @@ import type { WebResultsClient } from "@domain/web/webPorts";
 import type { WindowCatalog } from "@domain/windows/windowPorts";
 import type { Translate } from "@i18n/translate";
 import { AppSearchProvider } from "@provider/appSearchProvider";
+import { BookmarkSearchProvider } from "@provider/bookmarkSearchProvider";
 import { CalculatorSearchProvider } from "@provider/calculatorSearchProvider";
 import { CommandSearchProvider } from "@provider/commandSearchProvider";
 import { FileSearchProvider } from "@provider/fileSearchProvider";
@@ -27,6 +29,7 @@ import { WindowSearchProvider } from "@provider/windowSearchProvider";
 
 export interface SearchProviderDependencies {
   readonly apps: AppCatalog;
+  readonly bookmarks: BookmarkCatalog;
   readonly windows: WindowCatalog;
   readonly systemActions: SystemActionCatalog;
   readonly directories: DirectoryReader;
@@ -51,6 +54,7 @@ export const createSearchProviders = (
     new UnitConversionSearchProvider(deps.unitConverter, deps.clipboard, deps.translate),
     new SystemActionSearchProvider(deps.systemActions),
     new CommandSearchProvider(deps.commands, deps.translate),
+    new BookmarkSearchProvider(deps.bookmarks, deps.launcher, deps.settings),
     new FileSearchProvider(deps.directories, deps.launcher, deps.homeDirectory),
     new WebSearchProvider(deps.launcher, deps.settings, deps.translate),
     new KeywordSearchProvider(deps.launcher, deps.settings, deps.translate),

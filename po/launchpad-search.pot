@@ -12,6 +12,9 @@ msgstr ""
 msgid "App"
 msgstr ""
 
+msgid "Bookmark"
+msgstr ""
+
 msgid "Browse files and folders"
 msgstr ""
 
@@ -31,6 +34,9 @@ msgid "Command"
 msgstr ""
 
 msgid "Could not open the result"
+msgstr ""
+
+msgid "Default browser only: Chrome, Chromium, Brave, Edge or Vivaldi"
 msgstr ""
 
 msgid "Disabled"
@@ -82,6 +88,9 @@ msgid "Search %s for “%s”"
 msgstr ""
 
 msgid "Search apps, windows, files or type a calculation"
+msgstr ""
+
+msgid "Search browser bookmarks"
 msgstr ""
 
 msgid "Search the web"

@@ -9,6 +9,7 @@ export const ResultKind = {
   FOLDER: "folder",
   SYSTEM: "system",
   WEB: "web",
+  BOOKMARK: "bookmark",
   PROVIDER: "provider",
 } as const;
 export type ResultKind = (typeof ResultKind)[keyof typeof ResultKind];

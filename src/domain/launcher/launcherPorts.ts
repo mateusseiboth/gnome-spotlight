@@ -17,4 +17,5 @@ export interface CommandRunner {
 export interface SearchSettings {
   searchUrl(): string;
   keywordSearches(): KeywordSearches;
+  searchBookmarks(): boolean;
 }

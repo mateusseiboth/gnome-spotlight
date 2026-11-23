@@ -18,5 +18,9 @@
       <default>{'@y': 'https://www.youtube.com/results?search_query=%s', '@w': 'https://en.wikipedia.org/w/index.php?search=%s'}</default>
       <summary>Keyword searches: typing the keyword before the text opens the address, %s is replaced by the text</summary>
     </key>
+    <key name="search-bookmarks" type="b">
+      <default>true</default>
+      <summary>Show the bookmarks of the default browser in the results</summary>
+    </key>
   </schema>
 </schemalist>
