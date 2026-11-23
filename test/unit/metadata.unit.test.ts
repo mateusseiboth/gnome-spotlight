@@ -44,6 +44,12 @@ describe("metadata.json", () => {
     expect(metadata.description).toContain("off by default");
   });
 
+  test("agradece a tradução francesa", () => {
+    expect(metadata.description).toContain(
+      "French translation by mj42584 (https://github.com/mj42584)",
+    );
+  });
+
   test("não cita produto de terceiros", () => {
     expect(`${metadata.name} ${metadata.description}`).not.toMatch(/spotlight|macos|cosmic/i);
   });
